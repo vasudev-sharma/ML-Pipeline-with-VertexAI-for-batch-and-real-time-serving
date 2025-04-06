@@ -68,12 +68,12 @@ steps:
       - bandit -r . -f txt
 
 
-    mypy-check:
-      title: "Mypy Type Checking"
-      stage: "linting-formatting"
-      image: python:3.9-slim
-      commands:
-        - mypy . --check-untyped-defs > mypy-report.txt
+  mypy-check:
+    title: "Mypy Type Checking"
+    stage: "linting-formatting"
+    image: python:3.9-slim
+    commands:
+      - mypy . --check-untyped-defs > mypy-report.txt
 
 
   
