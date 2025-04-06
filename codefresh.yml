@@ -1,6 +1,8 @@
 # More examples of Codefresh YAML can be found at
 # https://codefresh.io/docs/docs/yaml-examples/examples/
 
+# TODO: Fix codefresh.yml not updating
+
 version: "1.0"
 # Stages can help you organize your steps in stages
 stages:
@@ -32,26 +34,49 @@ steps:
     dockerfile: "Dockerfile"
     stage: "build"
 
-
-  linting-formatting: 
-    title: "Static Analysis workflow"
+  
+  ###############################
+  # Linting and formatting
+  ###############################
+  install-tools:
+    title: "Install tools"
+    image: python:3.9-slim # TODO: Decide if that should be image or not
     stage: "linting-formatting"
-    # image: python:3.9-slim
-    steps:  
-      install-tools:
-        title: "Install tools"
-        image: python:3.9-slim
-        commands: 
-          - python -m pip install --upgrade pip
-          - pip install pylint bandit mypy flake8
+    commands: 
+      - python -m pip install --upgrade pip
+      - pip install pylint bandit mypy flake8
 
-      fake8-check:
-        title: "Flake 8 check"
-        image: python:3.9-slim
-        commands:
-          - flake8 . --exit-zero > flake8-report.txt
+  fake8-check:
+    title: "Flake 8 check"
+    image: python:3.9-slim
+    stage: "linting-formatting"
+    commands:
+      - flake8 . --exit-zero > flake8-report.txt
+
+  pylint-check:
+    title: "Pylint code Quality"
+    image: python:3.9-slim
+    stage: "linting-formatting"
+    commands:
+      - pylint **/*.py --exit-zero
+  
+  bandit-scan:
+    title: "Bandit Security Scan"
+    stage: "linting-formatting"
+    image: python:3.9-slim
+    commands:
+      - bandit -r . -f txt
 
 
+    mypy-check:
+      title: "Mypy Type Checking"
+      stage: "linting-formatting"
+      image: python:3.9-slim
+      commands:
+        - mypy . --check-untyped-defs > mypy-report.txt
+
+
+  
 
 
   test:
