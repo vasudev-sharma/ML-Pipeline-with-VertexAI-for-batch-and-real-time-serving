@@ -1,0 +1,36 @@
+name: CI Pipeline  
+on: [push, pull_request]  
+
+jobs:  
+  lint-format:  
+    runs-on: ubuntu-latest  
+    steps:  
+      - uses: actions/checkout@v4  
+      - uses: actions/setup-python@v5  
+
+      # Formatting (Black) and Linting (Ruff)  
+      - uses: konstruktoid/action-pylint@v1.0.0  
+        with:  
+          args: "black --check . && ruff check ."  
+
+  security-scan:  
+    runs-on: ubuntu-latest  
+    needs: lint-format  
+    steps:  
+      - uses: actions/checkout@v4  
+      - uses: actions/setup-python@v5  
+
+      # Dependency Vulnerability Scanning  
+      - name: Safety Check  
+        uses: aufdenpunkt/python-safety-check@master  
+        env:  
+          SAFETY_API_KEY: ${{ secrets.SAFETY_API_KEY }}  
+        with:  
+          safety_args: "--full-report"  
+
+      # Code Vulnerability Scanning  
+      - name: Bandit Security Scan  
+        uses: amikos-tech/py-vulnerability-scan@main  
+        with:  
+          input-dir: './src'  
+          format: 'txt'  
