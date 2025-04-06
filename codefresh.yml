@@ -10,6 +10,7 @@ stages:
   - "build"
   - "linting-formatting"
   - "test"
+  - "deployment"
 
 steps:
   clone:
@@ -77,6 +78,10 @@ steps:
 
 
   
+  ###############################
+  # Testing
+  ###############################
+
 
 
   test:
@@ -88,3 +93,16 @@ steps:
       - "ls"
     stage: "test"
 
+
+ 
+  ###############################
+  # Deployment
+  ###############################
+
+  push_to_registry:
+    title: "Push production image to Docker Hub"
+    stage: "deployment"
+    type: push
+    candidate: '${{build}}'
+    tag: 'prod'
+    registry: dockerhub
