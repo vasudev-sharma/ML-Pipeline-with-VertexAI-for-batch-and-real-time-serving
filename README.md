@@ -25,8 +25,13 @@ Consider creating files for each step, for example, data_collection.py, feature_
 # Add experiment Tracking with weights and biases: TODO later
 
 
+# CI / CD:
+Issue with CodeFresh artifact upload step
 
-# Containerization
+
+
+
+# Containerization: 
 ## Have 2 docker files
 - Dev enviroment 
 - prod evironment
