@@ -1,0 +1,64 @@
+# More examples of Codefresh YAML can be found at
+# https://codefresh.io/docs/docs/yaml-examples/examples/
+
+version: "1.0"
+# Stages can help you organize your steps in stages
+stages:
+  - "clone"
+  - "build"
+  - "linting-formatting"
+  - "test"
+
+steps:
+  clone:
+    title: "Cloning repository"
+    type: "git-clone"
+    repo: "vasudev-sharma/skipTheDishes_ML_challenge"
+    # CF_BRANCH value is auto set when pipeline is triggered
+    # Learn more at codefresh.io/docs/docs/codefresh-yaml/variables/
+    revision: "${{CF_BRANCH}}"
+    git: "vasu_ci_cd"
+    stage: "clone"
+
+  build:
+      
+    title: "Building Docker image"
+    type: "build"
+    image_name: "vasudevsharma/skip-the-dishes"
+    working_directory: "${{clone}}"
+    # tag: "${{CF_BRANCH_TAG_NORMALIZED}}"
+    tag: "latest"
+    # registry: "us-central1-docker.pkg.dev"
+    dockerfile: "Dockerfile"
+    stage: "build"
+
+
+  linting-format: 
+    title: "Static Analystis workflow"
+    stage: "linting-formating"
+    steps:  
+      install-tools:
+        title: "Install tools"
+        image: python:3.9-slim
+        commands: 
+          - python -m pip install --upgrade pip
+          - pip install pylint bandit mypy flake8
+        
+      fake8-check:
+        title: "Flake 8 check"
+        image: python:3.9-slim
+        commands:
+          - flake8 . --exit-zero > flake8-report.txt
+
+
+  
+
+  test:
+    title: "Running test"
+    type: "freestyle" # Run any command
+    image: "ubuntu:latest" # The image in which command will be executed
+    working_directory: "${{clone}}" # Running command where code cloned
+    commands:
+      - "ls"
+    stage: "test"
+
