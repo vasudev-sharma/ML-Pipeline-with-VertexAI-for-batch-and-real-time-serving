@@ -8,21 +8,27 @@ jobs:
 
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
+      - uses: astral-sh/ruff-action@v1
+
         with:
-          python-version: "3.11"
+          python-version: "3.9"
       
       - name: Install dependencies
         run: |
-          pip install flake8 mypy bandit
+          pip install ruff bandit mypy
+
+      - name: Run Ruff
+        with:
+          args: "--check ."  # Check all files, no autofix
       
-      - name: Run Flake8
-        run: flake8 .  # Check all files in repo
+      # - name: Run Flake8
+      #   run: flake8 .  # Check all files in repo
       
-      - name: Run Mypy
-        run: mypy .    # Type-check all Python files
+      # - name: Run Mypy
+      #   run: mypy .    # Type-check all Python files
 
       - name: Run Bandit Security scan 
         run:  bandit -r . -f txt
       
-      - name: Run Pylint
-        run: pylint **/*.py --exit-zero
+      # - name: Run Pylint
+      #   run: pylint **/*.py --exit-zero

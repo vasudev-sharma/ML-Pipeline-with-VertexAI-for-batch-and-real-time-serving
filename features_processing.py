@@ -2,7 +2,7 @@
 
 
 import collections
-from math import asin, cos, radians, sin, sqrt
+from math import radians
 import pandas as pd
 from typing import Dict
 import numpy as np
@@ -33,8 +33,8 @@ def calc_haversine_dist(lat1, lon1, lat2, lon2):
     if isinstance(lat1, collections.abc.Sequence):
         dLat = np.array([radians(l2 - l1) for l2, l1 in zip(lat2, lat1)])
         dLon = np.array([radians(l2 - l1) for l2, l1 in zip(lon2, lon1)])
-        lat1 = np.array([radians(l) for l in lat1])
-        lat2 = np.array([radians(l) for l in lat2])
+        lat1 = np.array([radians(l1) for l1 in lat1])
+        lat2 = np.array([radians(l2) for l2 in lat2])
     else:
         dLat = radians(lat2 - lat1)
         dLon = radians(lon2 - lon1)
@@ -63,7 +63,7 @@ def Encoder(df):
     for feature in columnsToEncode:
         try:
             df[feature] = le.fit_transform(df[feature])
-        except:
+        except ValueError:
             print("Error encoding " + feature)
     return df
 

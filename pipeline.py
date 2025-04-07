@@ -4,17 +4,12 @@ import numpy as np
 
 from data_prep import get_restaurants_df, process_data
 from features_processing import (
-    avg_dist_to_restaurants,
-    avg_Hdist_to_restaurants,
-    calc_dist,
-    calc_haversine_dist,
     feature_engineering,
-    Encoder,
 )
 from clustering import run_clustering, order_busyness
 from training import generate_ds
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import GridSearchCV, train_test_split
+from sklearn.model_selection import GridSearchCV
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)  # SET THE LEVEL OF Logging in Python

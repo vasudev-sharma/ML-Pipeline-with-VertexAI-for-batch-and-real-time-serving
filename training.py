@@ -12,7 +12,7 @@ def Encoder(df: pd.DataFrame) -> pd.DataFrame:
     for feature in columnsToEncode:
         try:
             df[feature] = le.fit_transform(df[feature])
-        except:
+        except ValueError:
             logging.info("Error encoding " + feature)
     return df
 

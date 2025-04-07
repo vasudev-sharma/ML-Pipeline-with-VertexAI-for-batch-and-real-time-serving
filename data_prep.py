@@ -2,7 +2,6 @@ import logging
 from io import StringIO
 from typing import Tuple
 
-import numpy as np
 import pandas as pd
 
 
@@ -11,7 +10,7 @@ def process_data(filename: str, sample_data: StringIO) -> pd.DataFrame:
     try:
         logging.info(f"Reading from filename: {filename}")
         df = pd.read_csv(filename)
-    except:
+    except FileNotFoundError:
         logging.info("Reading from sample data")
         df = pd.read_csv(sample_data)
 
@@ -25,7 +24,6 @@ def get_unique_restauraunts(processed_df) -> Tuple[pd.DataFrame, int]:
 
     # unique restaurants
     restaurants_ids = {}
-    list_restaurants_ids = []
     for a, b in zip(processed_df.restaurant_lat, processed_df.restaurant_lon):
         id = "{}_{}".format(a, b)
         restaurants_ids[id] = {"lat": a, "lon": b}

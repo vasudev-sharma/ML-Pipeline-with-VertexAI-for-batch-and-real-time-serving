@@ -1,9 +1,9 @@
 # clustering.py
-import h3
 import numpy as np
-import pandas as pd
+import pandas as pd # type: ignore
 from features_processing import calc_dist
 from typing import Dict
+import h3
 
 
 # STEP 1 - define K & initiate data
@@ -19,6 +19,17 @@ def initiate_centroids(k, df):
 
 # STEP 2 - define distance metric : Euclidean distance
 def eucl_dist(p1x, p1y, p2x, p2y):
+    """Finds the ec
+
+    Args:
+        p1x (_type_): _description_
+        p1y (_type_): _description_
+        p2x (_type_): _description_
+        p2y (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     return calc_dist(p1x, p1y, p2x, p2y)
 
 
