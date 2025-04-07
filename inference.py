@@ -1,14 +1,14 @@
 from training import load_model
 from io import StringIO
 
+
 def batch_predictions(model, data):
     predictions = model.predict(data)
     return predictions
 
 
 if __name__ == "__main___":
-    MODEL_FILENAME = 'model.pkl'
-
+    MODEL_FILENAME = "model.pkl"
 
     SAMPLE_DATA = StringIO(
         """courier_id,order_number,courier_location_timestamp,courier_lat,courier_lon,order_created_timestamp,restaurant_lat,restaurant_lon
@@ -25,10 +25,5 @@ if __name__ == "__main___":
                 """
     )
 
-
-
-
-
     # load model
     model = load_model(MODEL_FILENAME)
-

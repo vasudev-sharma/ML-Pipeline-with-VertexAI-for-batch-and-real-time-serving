@@ -9,7 +9,6 @@ import numpy as np
 from sklearn.preprocessing import LabelEncoder
 
 
-
 # calc. eucl. distances to restaurants arrays
 def calc_dist(p1x, p1y, p2x, p2y):
     p1 = (p2x - p1x) ** 2
@@ -59,15 +58,14 @@ def avg_Hdist_to_restaurants(courier_lat, courier_lon, restaurants_ids):
 
 
 def Encoder(df):
-  columnsToEncode = list(df.select_dtypes(include=['category','object']))
-  le = LabelEncoder()
-  for feature in columnsToEncode:
-      try:
-          df[feature] = le.fit_transform(df[feature])
-      except:
-          print('Error encoding '+feature)
-  return df
-
+    columnsToEncode = list(df.select_dtypes(include=["category", "object"]))
+    le = LabelEncoder()
+    for feature in columnsToEncode:
+        try:
+            df[feature] = le.fit_transform(df[feature])
+        except:
+            print("Error encoding " + feature)
+    return df
 
 
 def feature_engineering(df: pd.DataFrame, dict_ids: Dict[str, Dict[str, int]]):

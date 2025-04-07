@@ -9,7 +9,7 @@ from features_processing import (
     calc_dist,
     calc_haversine_dist,
     feature_engineering,
-    Encoder
+    Encoder,
 )
 from clustering import run_clustering, order_busyness
 from training import generate_ds
@@ -58,32 +58,21 @@ if __name__ == "__main__":
     print(type(restaurants_ids))
     print(restaurants_ids)
 
-
     # clustering
-    
+
     k = 5
     resolution = 7
     h3_clustered_df = run_clustering(k, restaurants_df, restaurants_ids, resolution)
 
-
-
-
-
-
     logging.debug(h3_clustered_df)
-
-
 
     # Order busyness
     busyness_df = order_busyness(h3_clustered_df)
     logging.debug(busyness_df)
 
-
-
     # Label Encoding
-    busyness_df['h3_index'] = busyness_df.h3_index.astype('category')
+    busyness_df["h3_index"] = busyness_df.h3_index.astype("category")
     logging.debug(busyness_df.head())
-
 
     # Training: data prep + training model
     X_train, X_test, y_train, y_test = generate_ds(busyness_df)
@@ -110,7 +99,6 @@ if __name__ == "__main__":
     grid_search.fit(X_train, y_train)
 
     print(grid_search.best_score_)
-
 
     # inference
 

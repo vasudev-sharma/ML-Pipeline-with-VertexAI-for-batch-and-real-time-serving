@@ -17,13 +17,13 @@ def Encoder(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-
 def save_model(model, filename):
-    with open(filename, 'wb') as f:
+    with open(filename, "wb") as f:
         pickle.dump(model, f)
 
+
 def load_model(filename):
-    with open(filename, 'rb') as f:
+    with open(filename, "rb") as f:
         model = pickle.load(f)
     return model
 
@@ -50,26 +50,25 @@ def generate_ds(df):
 
     return X_train, X_test, y_train, y_test
 
+    # if __name__ == "__main__":
+    #     X = df[
+    #         [
+    #             "dist_to_restaurant",
+    #             "Hdist_to_restaurant",
+    #             "avg_Hdist_to_restaurants",
+    #             "date_day_number",
+    #             "restaurant_id",
+    #             "Five_Clusters_embedding",
+    #             "h3_index",
+    #             "date_hour_number",
+    #             "restaurants_per_index",
+    #         ]
+    #     ]
+    #     y = df[["orders_busyness_by_h3_hour"]]
 
-# if __name__ == "__main__":
-#     X = df[
-#         [
-#             "dist_to_restaurant",
-#             "Hdist_to_restaurant",
-#             "avg_Hdist_to_restaurants",
-#             "date_day_number",
-#             "restaurant_id",
-#             "Five_Clusters_embedding",
-#             "h3_index",
-#             "date_hour_number",
-#             "restaurants_per_index",
-#         ]
-#     ]
-#     y = df[["orders_busyness_by_h3_hour"]]
-
-#     X_train, X_test, y_train, y_test = train_test_split(
-#         X, y, test_size=0.33, random_state=42
-#     )
+    #     X_train, X_test, y_train, y_test = train_test_split(
+    #         X, y, test_size=0.33, random_state=42
+    #     )
 
     regr = RandomForestRegressor(max_depth=4, random_state=0, n_jobs=-1)
 

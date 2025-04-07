@@ -63,8 +63,9 @@ def h3_clustering(resolution, df):
     return df
 
 
-
-def run_clustering(k: int, df: pd.DataFrame, dict_ids:  Dict[str, Dict[str, int]], resolution: int):
+def run_clustering(
+    k: int, df: pd.DataFrame, dict_ids: Dict[str, Dict[str, int]], resolution: int
+):
     centroids_init = pd.DataFrame(
         [{"lat": v["lat"], "lon": v["lon"]} for v in dict_ids.values()]
     )
@@ -75,7 +76,6 @@ def run_clustering(k: int, df: pd.DataFrame, dict_ids:  Dict[str, Dict[str, int]
     df_couriers["lat"] = df["courier_lat"]
     df_couriers["lon"] = df["courier_lon"]
 
-
     # TODO: fix me
     df_centroids = centroid_assignation(df, centroids)
 
@@ -85,18 +85,27 @@ def run_clustering(k: int, df: pd.DataFrame, dict_ids:  Dict[str, Dict[str, int]
 
 
 def order_busyness(df: pd.DataFrame) -> pd.DataFrame:
-    index_list = [(i,d,hr) for (i,d,hr) in zip(df.h3_index, df.date_day_number, df.date_hour_number)]
+    index_list = [
+        (i, d, hr)
+        for (i, d, hr) in zip(df.h3_index, df.date_day_number, df.date_hour_number)
+    ]
 
     set_indexes = list(set(index_list))
     dict_indexes = {label: index_list.count(label) for label in set_indexes}
-    df['orders_busyness_by_h3_hour'] = [dict_indexes[i] for i in index_list]
+    df["orders_busyness_by_h3_hour"] = [dict_indexes[i] for i in index_list]
 
-    restaurants_counts_per_h3_index = {a:len(b) for a,b in zip(df.groupby('h3_index')['restaurant_id'].unique().index, df.groupby('h3_index')['restaurant_id'].unique()) }
-    df['restaurants_per_index'] = [restaurants_counts_per_h3_index[h] for h in df.h3_index]
+    restaurants_counts_per_h3_index = {
+        a: len(b)
+        for a, b in zip(
+            df.groupby("h3_index")["restaurant_id"].unique().index,
+            df.groupby("h3_index")["restaurant_id"].unique(),
+        )
+    }
+    df["restaurants_per_index"] = [
+        restaurants_counts_per_h3_index[h] for h in df.h3_index
+    ]
 
     return df
-
-
 
 
 # if __name__ == "__main__":
