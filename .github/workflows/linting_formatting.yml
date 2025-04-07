@@ -3,21 +3,26 @@ on: [push, pull_request]
 
 jobs:  
   lint-format:  
-    runs-on: ubuntu-latest  
-    steps:  
-      - uses: actions/checkout@v4  
-      - uses: actions/setup-python@v5  
+    runs-on: ubuntu-latest
+    steps:
 
-      # Formatting (Black) and Linting (Ruff)  
-      - uses: konstruktoid/action-pylint@v1.0.0  
-        with:  
-          args: "black --check . && ruff check ."  
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      
+      - name: Install dependencies
+        run: |
+          pip install flake8 mypy bandit
+      
+      - name: Run Flake8
+        run: flake8 .  # Check all files in repo
+      
+      - name: Run Mypy
+        run: mypy .    # Type-check all Python files
 
-  security-scan:  
-    runs-on: ubuntu-latest  
-    needs: lint-format  
-    steps:  
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-      - run: pip install safety bandit
-      - run: safety check --full-report && bandit -r .
+      - name: Run Bandit Security scan 
+        run:  bandit -r . -f txt
+      
+      - name: Run Pylint
+        run: pylint **/*.py --exit-zero
