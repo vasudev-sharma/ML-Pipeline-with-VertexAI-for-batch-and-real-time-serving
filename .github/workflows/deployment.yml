@@ -13,11 +13,10 @@ jobs:
       REPO_NAME: ${{ secrets.REPO_NAME }}
       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
     container:
-      image: "us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME:latest"
+      image: us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME:latest
       credentials:
         username: _json_key
         password: ${{ secrets.GAR_JSON_KEY }}  # Base64-encoded service account key
-
 
     steps:
     - uses: actions/checkout@v4
@@ -31,8 +30,5 @@ jobs:
       uses: google-github-actions/auth@v2
       with:
         credentials_json: ${{ secrets.GCP_SA_KEY }}
-
-    # - name: Deploy model to Vertex AI Endpoint
-    #   run: |
 
 
