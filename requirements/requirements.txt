@@ -98,7 +98,7 @@ rich==14.0.0
     # via bandit
 rsa==4.9
     # via google-auth
-scikit-learn==1.6.1
+scikit-learn==1.5.2
     # via -r requirements/requirements.in
 scipy==1.13.1
     # via scikit-learn

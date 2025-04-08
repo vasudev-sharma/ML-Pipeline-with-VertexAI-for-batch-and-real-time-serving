@@ -62,6 +62,11 @@ if you want
 3. Add instructions on how to test the endpoint?
 4. How will you use CI/CD to automate the workflow?
 
+
+Training question
+1. How will you export model artifacts?
+
+
 Serving questions (Decision)
 1. Why we pin scikit -learn to 1.5.2 (issue with production image version)? 
 2. Why I chose scikit-learn built image?
