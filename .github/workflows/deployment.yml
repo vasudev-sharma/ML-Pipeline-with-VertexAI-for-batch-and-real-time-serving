@@ -23,6 +23,7 @@ jobs:
     - name: Configure Docker
       run: gcloud auth configure-docker ${{ secrets.REGION }}-docker.pkg.dev --quiet
   deploy-model:
+    needs: auth-docker-gcp
     runs-on: ubuntu-latest
     env: 
       PROJECT_ID: ${{ secrets.PROJECT_ID }}
