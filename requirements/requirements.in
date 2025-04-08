@@ -3,8 +3,8 @@ numpy
 pandas
 scikit-learn
 mypy
-flake8
-isort
 black
+bandit
+google-cloud-storage
 # Add safety checks and vulnerabilities in dependencies
 

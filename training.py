@@ -44,51 +44,12 @@ def generate_ds(df):
     ]
     y = df[["orders_busyness_by_h3_hour"]]
 
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.33, random_state=42
-    )
+    return X, y
 
-    return X_train, X_test, y_train, y_test
+def combine_ds_and_save(X, y, filename):
+    combine_ds = pd.concat((X, y), axis=1)
 
-    # if __name__ == "__main__":
-    #     X = df[
-    #         [
-    #             "dist_to_restaurant",
-    #             "Hdist_to_restaurant",
-    #             "avg_Hdist_to_restaurants",
-    #             "date_day_number",
-    #             "restaurant_id",
-    #             "Five_Clusters_embedding",
-    #             "h3_index",
-    #             "date_hour_number",
-    #             "restaurants_per_index",
-    #         ]
-    #     ]
-    #     y = df[["orders_busyness_by_h3_hour"]]
-
-    #     X_train, X_test, y_train, y_test = train_test_split(
-    #         X, y, test_size=0.33, random_state=42
-    #     )
-
-    regr = RandomForestRegressor(max_depth=4, random_state=0, n_jobs=-1)
-
-    # Fitting the model
-    regr.fit(X_train, y_train)
-    regr.score(X_test, y_test)
-
-    # TODO: Mange parameters: (Maybe Hydra)
-    params = {
-        "max_depth": [4, 5],
-        "min_samples_leaf": [50, 75],
-        "n_estimators": [100, 150],
-    }
-
-    # Instantiate the grid search model
-    grid_search = GridSearchCV(
-        estimator=regr, param_grid=params, cv=3, n_jobs=-1, verbose=1, scoring="r2"
-    )
-
-    # Fit the Grid Search
-    grid_search.fit(X_train, y_train)
-
-    grid_search.best_score_
+    try:
+        combine_ds.to_csv(filename)
+    except Exception as e:
+        print("Unable to save the data csv file")

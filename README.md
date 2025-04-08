@@ -14,15 +14,18 @@ Hints: We suggest containerization with Docker, using GCS for storage, Vertex AI
 Consider creating files for each step, for example, data_collection.py, feature_generation.py, training.py, and prediction.py, in addition to pipeline and config files to connect and execute the pipeline. Some features might be poorly implemented or not be in use. Your focus as an ML Engineer is refactoring the notebook into a structure project, but you can highlight any implementation issues you identify.
 
 
+
 ### Run locally with Python 3.9.7
 1. `pip install pip-tools`
-2. `pip-compile -r requirements/requirements.in`
+2. `pip-compile --upgrade -r requirements/requirements.in`
 3. `pip install -r requirements/requirements.txt`
 
 ### Design Decision
 
 
 # Add experiment Tracking with weights and biases: TODO later
+
+# Data upload the dataset to Google Cloud bucket for reproducibility
 
 
 # CI / CD:
@@ -47,3 +50,20 @@ if you want
 
 
 # pip-compile
+
+
+
+# Questions / thoughts
+
+
+
+1. Why we can't create inference on our own container/image?
+2. How will you package the data as well (training, validation and testing dataset)
+3. Add instructions on how to test the endpoint?
+4. How will you use CI/CD to automate the workflow?
+
+Serving questions (Decision)
+1. Why we pin scikit -learn to 1.5.2 (issue with production image version)? 
+2. Why I chose scikit-learn built image?
+    "us-docker.pkg.dev/vertex-ai/training/sklearn-cpu.1-6:latest"
+

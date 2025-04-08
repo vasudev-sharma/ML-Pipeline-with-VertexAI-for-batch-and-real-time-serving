@@ -62,7 +62,9 @@ def centroid_assignation(df, centroids):
 
 
 def h3_clustering(resolution, df):
-    df["courier_location_timestamp"] = pd.to_datetime(df["courier_location_timestamp"])
+
+    # Issue with 
+    df["courier_location_timestamp"] = pd.to_datetime(df["courier_location_timestamp"], format='mixed')
     df["order_created_timestamp"] = pd.to_datetime(df["order_created_timestamp"])
     df["h3_index"] = [
         h3.latlng_to_cell(lat, lon, resolution)

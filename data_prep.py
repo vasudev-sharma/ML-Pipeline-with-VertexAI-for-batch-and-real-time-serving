@@ -5,18 +5,16 @@ from typing import Tuple
 import pandas as pd
 
 
-def process_data(filename: str, sample_data: StringIO) -> pd.DataFrame:
+def process_data(filename: str) -> pd.DataFrame:
     # TODO: Add docstrings and Type hints
     try:
         logging.info(f"Reading from filename: {filename}")
         df = pd.read_csv(filename)
-    except FileNotFoundError:
-        logging.info("Reading from sample data")
-        df = pd.read_csv(sample_data)
+        df.dropna(axis=0, inplace=True)
+        return df
+    except FileNotFoundError as e:
+        raise e
 
-    df.dropna(axis=0, inplace=True)
-    print(df.head())
-    return df
 
 
 def get_unique_restauraunts(processed_df) -> Tuple[pd.DataFrame, int]:
