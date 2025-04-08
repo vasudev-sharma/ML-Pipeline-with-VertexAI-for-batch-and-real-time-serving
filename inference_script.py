@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import numpy as np
 import uvicorn
-
+import os
 app = FastAPI()
 
 
@@ -22,7 +22,7 @@ async def predict(input: BaseModel):
     # data = np.array(input.instances)
     preds = [4.60042024e-03, 3.33172912e-01, 5.26700015e+00, 9.20000000e+01,0.00000000e+00, 0.00000000e+00, 2.80000000e+01, 4.00000000e+00,5.10000000e+01]
     predictions = None
-    with open("/app/model.pkl", 'rb') as file:
+    with open(f"{os.environ.get('AIP_STORAGE_URI')}/model.pkl", 'rb') as file:
         model = pickle.load(file)
         predictions = model(input)
     
