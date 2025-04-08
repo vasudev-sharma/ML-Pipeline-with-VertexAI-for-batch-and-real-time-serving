@@ -8,5 +8,10 @@ cloud:
   project_id: 'keen-airlock-455922-q4'
   region: 'us-central1'
 
+MODEL_DIR: 'gs://skip-the-dishes-ml-model'
+model_name: 'busyness_model_testing'
 deploy_model: TRUE
-serving_image: 'us-docker.pkg.dev/vertex-ai/training/sklearn-cpu.1-6:latest'
+
+# NOTE: we need to pin sklearn==1.6.0 due to container image not present
+DEPLOY_IMAGE: 'us-docker.pkg.dev/vertex-ai/prediction/sklearn-cpu.1-5:latest'
+

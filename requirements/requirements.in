@@ -1,7 +1,7 @@
 h3 # FIXME: ISSUE with python 3.9 and  with h3==3.6.1 on Mac
 numpy
 pandas
-scikit-learn
+scikit-learn==1.5.2
 mypy
 black
 bandit
