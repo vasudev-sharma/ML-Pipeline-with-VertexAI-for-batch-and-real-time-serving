@@ -12,7 +12,7 @@ FROM python:3.9-slim
 # RUN apt install python3.9
 
 
-
+EXPOSE 8080
 # Install dependencies
 COPY requirements/requirements.in requirements.in
 RUN pip install pip-tools && pip-compile -r requirements.in && pip install -r requirements.txt
@@ -22,4 +22,4 @@ COPY inference_script.py inference_script.py
 COPY pipeline_script.py pipeline_script.py
 COPY configs/pipeline_config.yaml pipeline_config.yaml
 
-ENTRYPOINT ["python", "inference_script.py"]
+CMD ["uvicorn", "inference_script:app", "--host", "0.0.0.0", "--port", "8080"]

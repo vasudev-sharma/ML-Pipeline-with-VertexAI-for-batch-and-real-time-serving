@@ -19,7 +19,9 @@ certifi==2025.1.31
 charset-normalizer==3.4.1
     # via requests
 click==8.1.8
-    # via black
+    # via
+    #   black
+    #   uvicorn
 docstring-parser==0.16
     # via google-cloud-aiplatform
 exceptiongroup==1.2.2
@@ -70,7 +72,7 @@ googleapis-common-protos[grpc]==1.69.2
     #   grpcio-status
 grpc-google-iam-v1==0.14.2
     # via google-cloud-resource-manager
-grpcio==1.71.0
+grpcio==1.72.0rc1
     # via
     #   google-api-core
     #   googleapis-common-protos
@@ -78,6 +80,8 @@ grpcio==1.71.0
     #   grpcio-status
 grpcio-status==1.71.0
     # via google-api-core
+h11==0.14.0
+    # via uvicorn
 h3==4.2.2
     # via -r requirements/requirements.in
 idna==3.10
@@ -136,7 +140,7 @@ pyasn1==0.6.1
     #   rsa
 pyasn1-modules==0.4.2
     # via google-auth
-pydantic==2.11.2
+pydantic==2.11.3
     # via
     #   -r requirements/requirements.in
     #   fastapi
@@ -194,12 +198,15 @@ typing-extensions==4.13.1
     #   rich
     #   starlette
     #   typing-inspection
+    #   uvicorn
 typing-inspection==0.4.0
     # via pydantic
 tzdata==2025.2
     # via pandas
 urllib3==2.3.0
     # via requests
+uvicorn==0.34.0
+    # via -r requirements/requirements.in
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

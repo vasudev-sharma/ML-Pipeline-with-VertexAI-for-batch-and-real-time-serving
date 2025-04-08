@@ -10,5 +10,6 @@ google-cloud-aiplatform
 pydantic
 fastapi
 pydantic
+uvicorn
 # Add safety checks and vulnerabilities in dependencies
 
