@@ -1,7 +1,7 @@
 name: Linting and Formatting
 on:
   push:
-    branches: [master]
+    branches: [main]
 
 jobs:  
   lint-format:  
