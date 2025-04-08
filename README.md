@@ -47,6 +47,11 @@ if you want
 <!-- How will we access the predcitions -->
 <!-- What will be the considered the input to the model -->
 
+## Local testing 
+1. `docker build -f Dockerfile.production . -t inference_image`
+2. `
+
+
 
 
 # pip-compile

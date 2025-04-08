@@ -14,4 +14,5 @@ deploy_model: TRUE
 
 # NOTE: we need to pin sklearn==1.6.0 due to container image not present
 DEPLOY_IMAGE: 'us-docker.pkg.dev/vertex-ai/prediction/sklearn-cpu.1-5:latest'
+DATA_URI: 'gs://busyness-data/final_dataset.csv'
 

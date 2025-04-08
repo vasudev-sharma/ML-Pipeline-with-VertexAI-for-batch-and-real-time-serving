@@ -29,7 +29,11 @@ if __name__ == "__main__":
 
     # Data processing
     # DO something with process data
-    filename = train_config['data']['filename']  # TODO: Add config.yaml for hardcoded values
+    filename = train_config['data']['filename_uri']  # TODO: Add config.yaml for hardcoded values
+
+    if not filename:
+        filename = train_config['data']['filename_uri']
+    
 
     processed_df = process_data(filename=filename) # TODO: READ
 
@@ -106,10 +110,18 @@ if __name__ == "__main__":
     rf_best
 
     model = rf_best
+    
+
+    MODEL_DIR = os.getenv("AIP_MODEL_DIR")
+
+    if not MODEL_DIR:
+        MODEL_DIR = "model" # Save it locally in model directly
 
     # Save the best model
-    save_model(model, 'models/model.pkl')
+    save_model(model, '{MODEL_DIR}/model.pkl')
     # TODO: Save to cloud storage instead 
+
+    logging.info(f"Model is saved to  '{MODEL_DIR}/model.pkl'")
 
 
 
