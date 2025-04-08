@@ -16,7 +16,7 @@ jobs:
       image: us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME:latest
       credentials:
         username: _json_key
-        password: ${{ secrets.GAR_JSON_KEY }}  # Base64-encoded service account key
+        password: ${{ secrets.GCP_SA_KEY }}  # Base64-encoded service account key
 
     steps:
     - uses: actions/checkout@v4
