@@ -6,7 +6,23 @@ on: [push]
   #   branches: [master]
 
 jobs:
-  build-and-push:
+
+  auth-docker-gcp:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        project_id: ${{ secrets.PROJECT_ID }}
+
+    - name: Authenticate
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+    - name: Configure Docker
+      run: gcloud auth configure-docker ${{ secrets.REGION }}-docker.pkg.dev --quiet
+  deploy-model:
     runs-on: ubuntu-latest
     env: 
       PROJECT_ID: ${{ secrets.PROJECT_ID }}
