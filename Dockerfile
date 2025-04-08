@@ -20,7 +20,9 @@ RUN pip install pip-tools && pip-compile -r requirements.in && pip install -r re
 # COPY inference script and pipeline config file
 COPY inference_script.py inference_script.py
 COPY pipeline_script.py pipeline_script.py
+COPY configs /configs
 COPY configs/pipeline_config.yaml pipeline_config.yaml
+
 
 COPY trainer /trainer
 ENTRYPOINT [ "python",  "-m", "trainer.training_script" ]

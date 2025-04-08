@@ -20,8 +20,8 @@ def get_config_file(config_filepath):
     try:
         with open(config_filepath, 'r') as file:
             config = yaml.safe_load(file)
+            return config
     except Exception as e:
-        print("Error reading the config file")
+        raise FileNotFoundError("File not found error")
     
-    return config
 

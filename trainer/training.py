@@ -4,6 +4,14 @@ import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.preprocessing import LabelEncoder
+from google.cloud import storage
+from io import BytesIO
+
+def load_data(bucket_name, blob_path):
+    client = storage.Client()
+    bucket = client.bucket(bucket_name)
+    blob = bucket.blob(blob_path)
+    return pd.read_csv(BytesIO(blob.download_as_bytes()))
 
 
 def Encoder(df: pd.DataFrame) -> pd.DataFrame:

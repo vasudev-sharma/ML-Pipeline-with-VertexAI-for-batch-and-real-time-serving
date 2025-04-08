@@ -10,7 +10,7 @@ from trainer.features_processing import (
     Encoder
 )
 from trainer.clustering import run_clustering, order_busyness
-from trainer.training import generate_ds
+from trainer.training import generate_ds, load_data
 from trainer.utils import get_config_file
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import GridSearchCV, train_test_split
@@ -36,10 +36,14 @@ if __name__ == "__main__":
     if str(filename) == "None":  # TODO: fixme 
         # print("local storage")
         filename = train_config['data']['filename']
+        processed_df = process_data(filename=filename) # TODO: READ
+    else:
+        processed_df = load_data(bucket_name=train_config['data']['bucket_name'], blob_path=train_config['data']['blob_path'])
     
     print("The filename is ", filename)
 
-    processed_df = process_data(filename=filename) # TODO: READ
+
+    
 
     logging.debug("***" * 10)
     logging.debug(processed_df.head())
@@ -117,13 +121,13 @@ if __name__ == "__main__":
     
     # Environment variable for Vertex AI
     MODEL_DIR = os.getenv("AIP_MODEL_DIR")
-
+    save_dir =  f'{MODEL_DIR}/model.pkl'
     if not MODEL_DIR:
-        MODEL_DIR = "models" # Save it locally in model directly
-
-    # Save the best model
-    save_model(model, f'{MODEL_DIR}/model.pkl')
-    # TODO: Save to cloud storage instead 
+        MODEL_DIR = "" # Save it locally in model directly
+        save_model(model,'model.pkl')
+    else:
+        # Save the best model
+        save_model(model, f'{MODEL_DIR}/model.pkl')
 
     logging.info(f"Model is saved to  '{MODEL_DIR}/model.pkl'")
 
