@@ -111,8 +111,6 @@ if __name__ == "__main__":
     save_model(model, 'models/model.pkl')
     # TODO: Save to cloud storage instead 
 
-    
 
-    # inference
 
-    # Return the metrics
+

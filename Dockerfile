@@ -18,5 +18,6 @@ COPY requirements/requirements.in requirements.in
 RUN pip install pip-tools && pip-compile -r requirements.in && pip install -r requirements.txt
 
 # COPY inference script and pipeline config file
+COPY inference_script.py inference_script.py
 COPY pipeline_script.py pipeline_script.py
 COPY configs/pipeline_config.yaml pipeline_config.yaml

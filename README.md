@@ -72,3 +72,15 @@ Serving questions (Decision)
 2. Why I chose scikit-learn built image?
     "us-docker.pkg.dev/vertex-ai/training/sklearn-cpu.1-6:latest"
 
+
+## Predictions
+
+JSON
+{"instances": [[4.60042024e-03, 3.33172912e-01, 5.26700015e+00, 9.20000000e+01,0.00000000e+00, 0.00000000e+00, 2.80000000e+01, 4.00000000e+00,5.10000000e+01] ]}
+
+```python
+{'dist_to_restaurant': 0.004600420240541274, 'Hdist_to_restaurant': 0.3331729124701994, 'avg_Hdist_to_restaurants': 5.2670001515392695, 'date_day_number': 92.0, 'restaurant_id': 0.0, 'Five_Clusters_embedding': 0.0, 'h3_index': 28.0, 'date_hour_number': 4.0, 'restaurants_per_index': 51.0}
+```
+
+
+1. 

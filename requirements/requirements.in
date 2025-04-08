@@ -7,5 +7,8 @@ black
 bandit
 google-cloud-storage
 google-cloud-aiplatform
+pydantic
+fastapi
+pydantic
 # Add safety checks and vulnerabilities in dependencies
 

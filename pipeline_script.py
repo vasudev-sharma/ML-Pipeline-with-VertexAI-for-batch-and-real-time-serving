@@ -48,8 +48,6 @@ def upload_model_to_vertex_registry(display_name, model_dir, deploy_image_path):
     return model
 
 
-
-
 if __name__ == '__main__':
     # Read config 
     pipeline_config = get_config_file("configs/pipeline_config.yaml")
