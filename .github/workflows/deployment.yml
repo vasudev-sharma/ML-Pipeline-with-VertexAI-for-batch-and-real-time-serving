@@ -1,6 +1,11 @@
 name: Deployment
 
-on: [push]
+on: 
+    workflow_run:
+      workflows:
+        - Build and Push to GAR  # Name of the second workflow
+      types:
+        - completed
   # master
   # push:
   #   branches: [master]
@@ -30,7 +35,7 @@ jobs:
       REPO_NAME: ${{ secrets.REPO_NAME }}
       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
     container:
-      image:  us-central1-docker.pkg.dev/keen-airlock-455922-q4/skip-the-dishesv2/test_image:latest
+      image:  us-central1-docker.pkg.dev/keen-airlock-455922-q4/skip-the-dishesv2/test_image:dev
       credentials:
         username: _json_key
         password: ${{ secrets.GAR_JSON_KEY }}  # Base64-encoded service account key
