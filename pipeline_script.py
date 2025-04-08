@@ -1,5 +1,5 @@
 import google.cloud.aiplatform as aip
-from utils import get_config_file
+from trainer.utils import get_config_file
 import os
 from datetime import datetime
 
