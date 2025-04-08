@@ -17,5 +17,6 @@ FROM python:3.9-slim
 COPY requirements/requirements.in requirements.in
 RUN pip install pip-tools && pip-compile -r requirements.in && pip install -r requirements.txt
 
-# COPY 
-COPY inference.py inference.py
+# COPY inference script and pipeline config file
+COPY pipeline_script.py pipeline_script.py
+COPY dataconfigs/pipeline_config.yaml pipeline_config.yaml

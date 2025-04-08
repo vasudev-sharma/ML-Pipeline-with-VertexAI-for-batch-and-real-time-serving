@@ -1,0 +1,33 @@
+name: Deployment
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    container:
+      image: us-central1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPO_NAME }}/${{ secrets.IMAGE_NAME }}:latest
+      credentials:
+        username: _json_key
+        password: ${{ secrets.GAR_JSON_KEY }}  # Base64-encoded service account key
+
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        project_id: ${{ secrets.PROJECT_ID }}
+
+    - name: Authenticate
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+    # - name: Deploy model to Vertex AI Endpoint
+    #   run: |
+
+

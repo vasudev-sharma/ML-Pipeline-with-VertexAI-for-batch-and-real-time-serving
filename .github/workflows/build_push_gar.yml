@@ -2,7 +2,7 @@ name: Build and Push to GAR
 
 on:
   push:
-    branches: [master]
+    branches: [main]
 
 jobs:
   build-and-push:
@@ -27,9 +27,9 @@ jobs:
     - name: Build image
       run: |
         docker build . -t \
-        ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPO_NAME }}/${{ secrets.IMAGE_NAME }}:latest
+        ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPO_NAME }}/${{ secrets.IMAGE_NAME }}:dev
 
     - name: Push image
       run: |
         docker push \
-        ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPO_NAME }}/${{ secrets.IMAGE_NAME }}:latest
+        ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPO_NAME }}/${{ secrets.IMAGE_NAME }}:dev
