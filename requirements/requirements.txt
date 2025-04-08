@@ -4,6 +4,8 @@
 #
 #    pip-compile requirements/requirements.in
 #
+annotated-types==0.7.0
+    # via pydantic
 bandit==1.8.3
     # via -r requirements/requirements.in
 black==25.1.0
@@ -16,26 +18,59 @@ charset-normalizer==3.4.1
     # via requests
 click==8.1.8
     # via black
-google-api-core==2.24.2
+docstring-parser==0.16
+    # via google-cloud-aiplatform
+google-api-core[grpc]==2.24.2
     # via
+    #   google-cloud-aiplatform
+    #   google-cloud-bigquery
     #   google-cloud-core
+    #   google-cloud-resource-manager
     #   google-cloud-storage
 google-auth==2.38.0
     # via
     #   google-api-core
+    #   google-cloud-aiplatform
+    #   google-cloud-bigquery
     #   google-cloud-core
+    #   google-cloud-resource-manager
     #   google-cloud-storage
-google-cloud-core==2.4.3
-    # via google-cloud-storage
-google-cloud-storage==3.1.0
+google-cloud-aiplatform==1.87.0
     # via -r requirements/requirements.in
+google-cloud-bigquery==3.31.0
+    # via google-cloud-aiplatform
+google-cloud-core==2.4.3
+    # via
+    #   google-cloud-bigquery
+    #   google-cloud-storage
+google-cloud-resource-manager==1.14.2
+    # via google-cloud-aiplatform
+google-cloud-storage==2.19.0
+    # via
+    #   -r requirements/requirements.in
+    #   google-cloud-aiplatform
 google-crc32c==1.7.1
     # via
     #   google-cloud-storage
     #   google-resumable-media
 google-resumable-media==2.7.2
-    # via google-cloud-storage
-googleapis-common-protos==1.69.2
+    # via
+    #   google-cloud-bigquery
+    #   google-cloud-storage
+googleapis-common-protos[grpc]==1.69.2
+    # via
+    #   google-api-core
+    #   grpc-google-iam-v1
+    #   grpcio-status
+grpc-google-iam-v1==0.14.2
+    # via google-cloud-resource-manager
+grpcio==1.71.0
+    # via
+    #   google-api-core
+    #   googleapis-common-protos
+    #   grpc-google-iam-v1
+    #   grpcio-status
+grpcio-status==1.71.0
     # via google-api-core
 h3==4.2.2
     # via -r requirements/requirements.in
@@ -59,8 +94,12 @@ numpy==2.0.2
     #   pandas
     #   scikit-learn
     #   scipy
+    #   shapely
 packaging==24.2
-    # via black
+    # via
+    #   black
+    #   google-cloud-aiplatform
+    #   google-cloud-bigquery
 pandas==2.2.3
     # via -r requirements/requirements.in
 pathspec==0.12.1
@@ -70,11 +109,18 @@ pbr==6.1.1
 platformdirs==4.3.7
     # via black
 proto-plus==1.26.1
-    # via google-api-core
-protobuf==6.30.2
     # via
     #   google-api-core
+    #   google-cloud-aiplatform
+    #   google-cloud-resource-manager
+protobuf==5.29.4
+    # via
+    #   google-api-core
+    #   google-cloud-aiplatform
+    #   google-cloud-resource-manager
     #   googleapis-common-protos
+    #   grpc-google-iam-v1
+    #   grpcio-status
     #   proto-plus
 pyasn1==0.6.1
     # via
@@ -82,10 +128,16 @@ pyasn1==0.6.1
     #   rsa
 pyasn1-modules==0.4.2
     # via google-auth
+pydantic==2.11.2
+    # via google-cloud-aiplatform
+pydantic-core==2.33.1
+    # via pydantic
 pygments==2.19.1
     # via rich
 python-dateutil==2.9.0.post0
-    # via pandas
+    # via
+    #   google-cloud-bigquery
+    #   pandas
 pytz==2025.2
     # via pandas
 pyyaml==6.0.2
@@ -93,6 +145,7 @@ pyyaml==6.0.2
 requests==2.32.3
     # via
     #   google-api-core
+    #   google-cloud-bigquery
     #   google-cloud-storage
 rich==14.0.0
     # via bandit
@@ -102,6 +155,8 @@ scikit-learn==1.5.2
     # via -r requirements/requirements.in
 scipy==1.13.1
     # via scikit-learn
+shapely==2.0.7
+    # via google-cloud-aiplatform
 six==1.17.0
     # via python-dateutil
 stevedore==5.4.1
@@ -115,8 +170,14 @@ tomli==2.2.1
 typing-extensions==4.13.1
     # via
     #   black
+    #   google-cloud-aiplatform
     #   mypy
+    #   pydantic
+    #   pydantic-core
     #   rich
+    #   typing-inspection
+typing-inspection==0.4.0
+    # via pydantic
 tzdata==2025.2
     # via pandas
 urllib3==2.3.0

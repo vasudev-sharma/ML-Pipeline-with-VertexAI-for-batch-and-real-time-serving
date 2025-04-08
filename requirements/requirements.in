@@ -6,5 +6,6 @@ mypy
 black
 bandit
 google-cloud-storage
+google-cloud-aiplatform
 # Add safety checks and vulnerabilities in dependencies
 
