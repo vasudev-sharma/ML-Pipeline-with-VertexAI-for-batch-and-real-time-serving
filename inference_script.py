@@ -14,16 +14,16 @@ class Input(BaseModel):
     instances: list
 
 @app.get("/health_check")
-def health_check():
+async def health_check():
     return {"status": "healthy"}
 
 @app.post("/predict")
-def predict(input: BaseModel):
+async def predict(input: BaseModel):
     # data = np.array(input.instances)
     preds = [4.60042024e-03, 3.33172912e-01, 5.26700015e+00, 9.20000000e+01,0.00000000e+00, 0.00000000e+00, 2.80000000e+01, 4.00000000e+00,5.10000000e+01]
     predictions = None
     with open("model.pkl", 'rb') as file:
-        model = pickle.load("model.pkl")
+        model = pickle.load(file)
         predictions = model(input)
     # print(model)
     
