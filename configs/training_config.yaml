@@ -2,8 +2,8 @@
 
 data:
   filename: 'data/final_dataset.csv'
-  filename_uri: 'gs://busyness-data/final_dataset.csv' # Set to None, to do local training
-  # filename: 'data/data.csv'
+  # filename_uri: 'gs://busyness-data/final_dataset.csv' # Set to None, to do local training
+  filename_uri: None
   
 
   # train-val-test split

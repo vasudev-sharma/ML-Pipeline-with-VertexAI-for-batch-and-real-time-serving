@@ -1,7 +1,7 @@
 # clustering.py
 import numpy as np
 import pandas as pd # type: ignore
-from features_processing import calc_dist
+from trainer.features_processing import calc_dist
 from typing import Dict
 import h3
 

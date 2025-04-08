@@ -1,18 +1,19 @@
 import logging
 from io import StringIO
 import numpy as np
-from training import save_model
+import os
+from trainer.training import save_model
 
-from data_prep import get_restaurants_df, process_data
-from features_processing import (
+from trainer.data_prep import get_restaurants_df, process_data
+from trainer.features_processing import (
     feature_engineering,
     Encoder
 )
-from clustering import run_clustering, order_busyness
-from training import generate_ds
+from trainer.clustering import run_clustering, order_busyness
+from trainer.training import generate_ds
+from trainer.utils import get_config_file
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import GridSearchCV, train_test_split
-from utils import get_config_file
 
 
 
@@ -30,10 +31,13 @@ if __name__ == "__main__":
     # Data processing
     # DO something with process data
     filename = train_config['data']['filename_uri']  # TODO: Add config.yaml for hardcoded values
-
-    if not filename:
-        filename = train_config['data']['filename_uri']
+    # print("Earlier filename is", filename)
+    # print("type of data is", type(filename))
+    if str(filename) == "None":  # TODO: fixme 
+        # print("local storage")
+        filename = train_config['data']['filename']
     
+    print("The filename is ", filename)
 
     processed_df = process_data(filename=filename) # TODO: READ
 
@@ -111,14 +115,14 @@ if __name__ == "__main__":
 
     model = rf_best
     
-
+    # Environment variable for Vertex AI
     MODEL_DIR = os.getenv("AIP_MODEL_DIR")
 
     if not MODEL_DIR:
-        MODEL_DIR = "model" # Save it locally in model directly
+        MODEL_DIR = "models" # Save it locally in model directly
 
     # Save the best model
-    save_model(model, '{MODEL_DIR}/model.pkl')
+    save_model(model, f'{MODEL_DIR}/model.pkl')
     # TODO: Save to cloud storage instead 
 
     logging.info(f"Model is saved to  '{MODEL_DIR}/model.pkl'")

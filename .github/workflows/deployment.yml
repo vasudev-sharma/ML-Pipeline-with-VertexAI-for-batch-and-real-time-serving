@@ -1,51 +1,51 @@
-# name: Deployment
+name: Deployment
 
-# on: 
+on: 
 
-#     workflow_run:
-#       workflows:
-#         - Build and Push to GAR  # Name of the second workflow
-#       types:
-#         - completed
-#   # master
-#   # push:
-#   #   branches: [master]
+    workflow_run:
+      workflows:
+        - Build and Push to GAR  # Name of the second workflow
+      types:
+        - completed
+  # master
+  # push:
+  #   branches: [master]
 
-# jobs:
+jobs:
 
-#   deploy-model:
-#     # needs: auth-docker-gcp
-#     runs-on: ubuntu-latest
-#     env: 
-#       PROJECT_ID: ${{ secrets.PROJECT_ID }}
-#       REPO_NAME: ${{ secrets.REPO_NAME }}
-#       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-#     container:
-#       image:  us-central1-docker.pkg.dev/keen-airlock-455922-q4/skip-the-dishesv2/test_image:dev
-#       credentials:
-#         username: _json_key
-#         password: ${{ secrets.GAR_JSON_KEY }}  # Base64-encoded service account key
+  deploy-model:
+    # needs: auth-docker-gcp
+    runs-on: ubuntu-latest
+    env: 
+      PROJECT_ID: ${{ secrets.PROJECT_ID }}
+      REPO_NAME: ${{ secrets.REPO_NAME }}
+      IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+    container:
+      image:  us-central1-docker.pkg.dev/keen-airlock-455922-q4/skip-the-dishesv2/test_image:dev
+      credentials:
+        username: _json_key
+        password: ${{ secrets.GAR_JSON_KEY }}  # Base64-encoded service account key
 
-#     steps:
-#     - uses: actions/checkout@v4
+    steps:
+    - uses: actions/checkout@v4
 
-#     - name: Set up Cloud SDK
-#       uses: google-github-actions/setup-gcloud@v2
-#       with:
-#         project_id: ${{ secrets.PROJECT_ID }}
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        project_id: ${{ secrets.PROJECT_ID }}
 
-#     - name: Authenticate
-#       uses: google-github-actions/auth@v2
-#       with:
-#         credentials_json: ${{ secrets.GCP_SA_KEY }}
+    - name: Authenticate
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
 
 
-#     - name: Configure Docker
-#       run: gcloud auth configure-docker ${{ secrets.REGION }}-docker.pkg.dev --quiet
+    - name: Configure Docker
+      run: gcloud auth configure-docker ${{ secrets.REGION }}-docker.pkg.dev --quiet
 
     
-#     - name: Deploy model to Vertex AI
-#       run: |
-#          python pipeline_script.py   
+    - name: Deploy model to Vertex AI
+      run: |
+         python pipeline_script.py   
 
 
