@@ -23,4 +23,4 @@ COPY pipeline_script.py pipeline_script.py
 COPY configs/pipeline_config.yaml pipeline_config.yaml
 
 COPY trainer /trainer
-ENTRYPOINT [ "python",  "-m", "training_script" ]
+ENTRYPOINT [ "python",  "-m", "trainer.training_script" ]

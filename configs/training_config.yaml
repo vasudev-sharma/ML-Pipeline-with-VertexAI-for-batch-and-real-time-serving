@@ -2,8 +2,8 @@
 
 data:
   filename: 'data/final_dataset.csv'
-  # filename_uri: 'gs://busyness-data/final_dataset.csv' # Set to None, to do local training
-  filename_uri: None
+  filename_uri: 'gs://busyness-data/final_dataset.csv' # Set to None, to do local training
+  # filename_uri: None
   
 
   # train-val-test split
@@ -36,7 +36,7 @@ model:
     n_jobs: -1
     scoring: 'r2'
 
-JOB_NAME: 'training_job'
+JOB_NAME: 'training_job_v2'
 TRAIN_IMAGE: us-central1-docker.pkg.dev/keen-airlock-455922-q4/skip-the-dishesv2/test_image:dev
 TRAIN_COMPUTE: "n1-standard-4"
 DEPLOY_IMAGE: 'us-docker.pkg.dev/vertex-ai/prediction/sklearn-cpu.1-5:latest'

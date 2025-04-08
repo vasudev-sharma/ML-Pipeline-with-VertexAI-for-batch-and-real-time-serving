@@ -1,7 +1,7 @@
 
 from typing import Union, List
 import google.cloud.aiplatform as aiplatform
-from utils import get_config_file
+from trainer.utils import get_config_file
 def create_and_import_dataset_tabular_gcs_sample(
     display_name: str,
     project: str,
@@ -32,30 +32,33 @@ if __name__ == "__main__":
 
     job = aiplatform.CustomTrainingJob(
                                             display_name=config['JOB_NAME'],
-                                            script_path="training_script.py",
-                                            container_uri='us-docker.pkg.dev/vertex-ai/training/sklearn-cpu.1-6:latest', # TODO: Use custom container
+                                            script_path="trainer/training_script.py",
+                                            container_uri='us-central1-docker.pkg.dev/keen-airlock-455922-q4/skip-the-dishesv2/test_image:dev', # TODO: Use custom container
+                                            # container_uri='us-docker.pkg.dev/vertex-ai/training/sklearn-cpu.1-6:latest', # TODO: Use custom container
                                             model_serving_container_image_uri=config["DEPLOY_IMAGE"], # 
                                         )
-    MODEL_DISPLAY_NAME = "Testing model"
+    MODEL_DISPLAY_NAME = "Testing model v2"
 
     if config['TRAIN_GPU']:
 
         model = job.run(
             model_display_name=MODEL_DISPLAY_NAME,
             replica_count=1,
+             base_output_dir="gs://busyness-data",
             accelerator_type=config['GPU']['NVIDIA_TESLA_T4'],
             accelerator_count=config['GPU']['TRAIN_NGPU'],
             machine_type=config['TRAIN_COMPUTE'],
-            sync=True
+            # sync=True
         )
 
     else:
 
         model = job.run(
             model_display_name=MODEL_DISPLAY_NAME,
+            base_output_dir="gs://vasu-bucket/artifacts",
             replica_count=1,
             machine_type=config['TRAIN_COMPUTE'], 
-            sync=True
+            # sync=True
         )
 
 
