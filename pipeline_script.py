@@ -51,7 +51,9 @@ def upload_model_to_vertex_registry(display_name, model_dir, deploy_image_path):
 if __name__ == '__main__':
     # Read config 
     pipeline_config = get_config_file("configs/pipeline_config.yaml")
-    
+    training_config = get_config_file("configs/pipeline_config.yaml")
+
+
 
     # Upload model
     model = upload_model_to_vertex_registry(pipeline_config['model_name'], pipeline_config['MODEL_DIR'], pipeline_config['DEPLOY_IMAGE'])
