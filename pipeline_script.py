@@ -42,8 +42,7 @@ def upload_model_to_vertex_registry(display_name, model_dir, deploy_image_path):
     serving_container_image_uri=deploy_image_path,
     is_default_version=True,
     version_aliases=["v1"],
-    version_description="Busyness model",
-                            )
+    version_description="Busyness model",)
 
     return model
 
