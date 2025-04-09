@@ -1,6 +1,11 @@
 name: Run Unit Tests
 
 on:
+    workflow_run:
+        workflows:
+            - Linting and Formatting
+        types:
+            - completed
     push:
         branches:
             - master
@@ -22,8 +27,12 @@ jobs:
         - name: Install dependencies
           run: |
                 python -m pip install --upgrade pip
-                pip install pytest
+                pip install pytest pytest-cov
 
         - name: Run unit tests
           run: |
             pytest
+
+        - name: Test converage with Pytest
+          run: |
+            pytest --cov=src --cov-report=xml --cov-report=html

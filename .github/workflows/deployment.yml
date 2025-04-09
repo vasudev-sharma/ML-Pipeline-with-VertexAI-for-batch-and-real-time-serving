@@ -5,6 +5,8 @@ on:
     workflow_run:
       workflows:
         - Build and Push to GAR  # Name of the second workflow
+        - Run Unit Tests
+        - Linting and Formatting
       types:
         - completed
     push:
