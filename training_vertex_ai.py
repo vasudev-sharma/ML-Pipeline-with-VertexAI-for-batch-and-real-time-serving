@@ -53,7 +53,7 @@ if __name__ == "__main__":
 
     model = job.run(
         model_display_name=MODEL_DISPLAY_NAME,
-        base_output_dir=config['MODEL']['model_artifacts_uri'],
+        base_output_dir=config['model']['model_artifacts_uri'],
         replica_count=config['MAX_REPLICA'],
         accelerator_type=accelerator_type,
         accelerator_count=accelerator_count,
