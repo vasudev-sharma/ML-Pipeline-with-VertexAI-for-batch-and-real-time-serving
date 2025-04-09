@@ -130,8 +130,10 @@ if __name__ == "__main__":
         # Save the best model
         save_model(model, model_filepath)
 
-        gcs_path = upload_to_gcs(bucket_name=train_config['data']['bucket_name'], source_file_path=model_filepath, destination_blob_name=model_filepath)
+        gcs_path = upload_to_gcs(bucket_name=train_config['model']['bucket_name'], source_file_path=model_filepath, destination_blob_name=train_config['model']['blob_path'])
         logging.info(f"Model is saved to : {gcs_path}")
+
+
 
 
 
