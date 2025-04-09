@@ -33,7 +33,7 @@ if __name__ == "__main__":
     job = aiplatform.CustomContainerTrainingJob(
                                             display_name=config['JOB_NAME'],
                                             command=["python", "-m", "trainer.training_script"],
-                                            container_uri='us-central1-docker.pkg.dev/keen-airlock-455922-q4/skip-the-dishesv2/test_image:train', # TODO: Use custom container
+                                            container_uri='us-central1-docker.pkg.dev/keen-airlock-455922-q4/skip-the-dishesv2/test_image:dev', # TODO: Use custom container
                                             # container_uri='us-docker.pkg.dev/vertex-ai/training/sklearn-cpu.1-6:latest', # TODO: Use custom container
                                             model_serving_container_image_uri=config["DEPLOY_IMAGE"], # 
                                         )

@@ -11,7 +11,7 @@ from trainer.features_processing import (
 )
 from trainer.clustering import run_clustering, order_busyness
 from trainer.training import generate_ds, load_data
-from trainer.utils import get_config_file
+from trainer.utils import get_config_file, upload_to_gcs
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import GridSearchCV, train_test_split
 
@@ -121,15 +121,17 @@ if __name__ == "__main__":
     
     # Environment variable for Vertex AI
     MODEL_DIR = os.getenv("AIP_MODEL_DIR")
-    save_dir =  f'{MODEL_DIR}model.pkl'
+    model_filepath =  'model.pkl'
     if not MODEL_DIR:
         MODEL_DIR = "" # Save it locally in model directly
         save_model(model,'model.pkl')
         logging.info("Model is saved as: model.pkl'")
     else:
         # Save the best model
-        save_model(model, save_dir)
-        logging.info(f"Model is saved to : {save_dir}")
+        save_model(model, model_filepath)
+
+        gcs_path = upload_to_gcs(bucket_name=train_config['data']['bucket_name'], source_file_path=model_filepath, destination_blob_name=model_filepath)
+        logging.info(f"Model is saved to : {gcs_path}")
 
 
 
