@@ -83,5 +83,5 @@ def combine_ds_and_save(X, y, filename):
 
     try:
         combine_ds.to_csv(filename)
-    except Exception as e:
+    except Exception:
         print("Unable to save the data csv file")

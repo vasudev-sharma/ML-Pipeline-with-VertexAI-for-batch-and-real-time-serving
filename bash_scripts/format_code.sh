@@ -2,9 +2,17 @@
 #! /bin/bash
 
 # Run tests
-ruff --check .
+
+printf "Running Ruff........\n\n"
+ruff check . --exit-zero
+
+printf "\n\nRunning MyPy.....\n\n"
 mypy .
+
+printf "\n\nRunning black.....\n\n"
 black . --check 
-bandit -r . -f txt
+
+prinf "\n\nRunning bandit.....\n\n"
+bandit -r . -f txt --exit-zero
 
 

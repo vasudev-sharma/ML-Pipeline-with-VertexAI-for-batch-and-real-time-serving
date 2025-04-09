@@ -8,9 +8,6 @@ def deploy_model(model, config):
     endpoints = aip.Endpoint.list(
         filter='display_name="{}"'.format(
             config["ENDPOINT_NAME"],
-            order_by="create_time desc",
-            project=config["cloud"]["project_id"],
-            location=config["cloud"]["region"],
         )
     )
 

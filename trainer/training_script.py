@@ -1,5 +1,4 @@
 import logging
-from io import StringIO
 import numpy as np
 import os
 from trainer.training import save_model
