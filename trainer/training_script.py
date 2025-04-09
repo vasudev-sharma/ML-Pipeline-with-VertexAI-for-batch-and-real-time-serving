@@ -121,7 +121,7 @@ if __name__ == "__main__":
     
     # Environment variable for Vertex AI
     MODEL_DIR = os.getenv("AIP_MODEL_DIR")
-    save_dir =  f'{MODEL_DIR}/model.pkl'
+    save_dir =  f'{MODEL_DIR}model.pkl'
     if not MODEL_DIR:
         MODEL_DIR = "" # Save it locally in model directly
         save_model(model,'model.pkl')

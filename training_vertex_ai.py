@@ -30,10 +30,10 @@ if __name__ == "__main__":
     # dataset = create_and_import_dataset_tabular_gcs_sample(display_name='data', project='keen-airlock-455922-q4', location='us-central1', gcs_source='gs://busyness-data/final_dataset.csv')
     aiplatform.init(project=config['PROJECT_ID'], location=config['REGION'], staging_bucket=config['data']['filename_uri'])
 
-    job = aiplatform.CustomTrainingJob(
+    job = aiplatform.CustomContainerTrainingJob(
                                             display_name=config['JOB_NAME'],
-                                            script_path="trainer/training_script.py",
-                                            container_uri='us-central1-docker.pkg.dev/keen-airlock-455922-q4/skip-the-dishesv2/test_image:dev', # TODO: Use custom container
+                                            command=["python", "-m", "trainer.training_script"],
+                                            container_uri='us-central1-docker.pkg.dev/keen-airlock-455922-q4/skip-the-dishesv2/test_image:train', # TODO: Use custom container
                                             # container_uri='us-docker.pkg.dev/vertex-ai/training/sklearn-cpu.1-6:latest', # TODO: Use custom container
                                             model_serving_container_image_uri=config["DEPLOY_IMAGE"], # 
                                         )
