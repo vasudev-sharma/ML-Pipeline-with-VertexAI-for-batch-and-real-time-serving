@@ -1,6 +1,11 @@
 name: Build and Push to GAR
 
 on:
+  workflow_run:
+    workflows:
+        - Linting and Formatting
+    types:
+        - completed
   push:
     branches: [main]
 
