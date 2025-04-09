@@ -17,20 +17,19 @@ jobs:
       
       - name: Install dependencies
         run: |
-          pip install ruff bandit mypy
+          pip install ruff bandit mypy black
 
       - name: Run Ruff
-        with:
-          args: "--check ."  # Check all files, no autofix
+        run: ruff --check .
       
       # - name: Run Flake8
       #   run: flake8 .  # Check all files in repo
       
-      # - name: Run Mypy
-      #   run: mypy .    # Type-check all Python files
+      - name: Run Mypy
+        run: mypy .    # Type-check all Python files
 
       - name: Run Bandit Security scan 
         run:  bandit -r . -f txt
       
-      # - name: Run Pylint
-      #   run: pylint **/*.py --exit-zero
+      - name: Run Black
+        run: black . --check  # Check all files, no autofix

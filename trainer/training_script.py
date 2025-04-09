@@ -45,22 +45,22 @@ if __name__ == "__main__":
 
     
 
-    logging.debug("***" * 10)
-    logging.debug(processed_df.head())
+    logging.info("***" * 10)
+    logging.info(processed_df.head())
 
-    logging.debug("***" * 10)
+    logging.info("***" * 10)
     restaurants_df, restaurants_ids = get_restaurants_df(processed_df)
 
     # Fetch couriers
-    logging.debug(f"Length of unique elements is: {len(restaurants_ids)}")
-    logging.debug(f"The restaurant dataframe is: {restaurants_df}")
+    logging.info(f"Length of unique elements is: {len(restaurants_ids)}")
+    logging.info(f"The restaurant dataframe is: {restaurants_df}")
 
     # feature engineering
-    logging.debug("\n\n*********" * 10)
-    logging.debug(f"DataFrame after feature processing is: {restaurants_df}")
+    logging.info("\n\n*********" * 10)
+    logging.info(f"DataFrame after feature processing is: {restaurants_df}")
     restaurants_df = feature_engineering(restaurants_df, restaurants_ids)
-    logging.debug(type(restaurants_ids))
-    logging.debug(restaurants_ids)
+    logging.info(type(restaurants_ids))
+    logging.info(restaurants_ids)
 
     # clustering
 
@@ -68,11 +68,11 @@ if __name__ == "__main__":
     resolution = train_config['clustering']['resolution']
     h3_clustered_df = run_clustering(k, restaurants_df, restaurants_ids, resolution)
 
-    logging.debug(h3_clustered_df.head())
+    logging.info(h3_clustered_df.head())
 
     # Order busyness
     busyness_df = order_busyness(h3_clustered_df)
-    logging.debug(busyness_df.head())
+    logging.info(busyness_df.head())
 
 
 
@@ -81,7 +81,7 @@ if __name__ == "__main__":
     # Label Encoding
     busyness_df["h3_index"] = busyness_df.h3_index.astype("category")
     busyness_df= Encoder(busyness_df)
-    logging.debug(busyness_df.head())
+    logging.info(busyness_df.head())
 
     # Training: data prep + training model
     # X_train, X_test, y_train, y_test = generate_ds(busyness_df, split_size=0.33, random_state=42)

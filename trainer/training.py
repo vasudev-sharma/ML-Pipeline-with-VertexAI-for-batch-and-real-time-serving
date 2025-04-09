@@ -8,6 +8,13 @@ from google.cloud import storage
 from io import BytesIO
 
 def load_data(bucket_name, blob_path):
+    """Load data from GCS bucket
+    Args:
+        bucket_name (str): Name of the GCS bucket
+        blob_path (str): Path to the blob in the bucket
+    Returns:
+        pd.DataFrame: DataFrame containing the loaded data
+    """
     client = storage.Client()
     bucket = client.bucket(bucket_name)
     blob = bucket.blob(blob_path)
@@ -26,17 +33,34 @@ def Encoder(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def save_model(model, filename):
+    """Save the model to a file
+    Args:
+        model: The model to save
+        filename (str): The filename to save the model to
+    """
     with open(filename, "wb") as f:
         pickle.dump(model, f)
 
 
 def load_model(filename):
+    """Load the model from a file
+    Args:
+        filename (str): The filename to load the model from
+    Returns:
+        The loaded model
+    """
     with open(filename, "rb") as f:
         model = pickle.load(f)
     return model
 
 
 def generate_ds(df):
+    """Generate the dataset for training
+    Args:
+        df (pd.DataFrame): The DataFrame containing the data
+    Returns:
+        tuple: A tuple containing the features and target variable
+    """
     X = df[
         [
             "dist_to_restaurant",

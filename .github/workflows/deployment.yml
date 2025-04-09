@@ -7,9 +7,8 @@ on:
         - Build and Push to GAR  # Name of the second workflow
       types:
         - completed
-  # master
-  # push:
-  #   branches: [master]
+    push:
+      branches: [main]
 
 jobs:
 

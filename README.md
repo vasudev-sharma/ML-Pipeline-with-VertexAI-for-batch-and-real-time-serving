@@ -93,3 +93,4 @@ JSON
 
 ## Training
 Issue with Vertex AI image (the base image has to be inherited from Scikit-learn image)
+Add the datasets: train, validation and testing separately

@@ -42,6 +42,14 @@ def upload_to_gcs(bucket_name, source_file_path, destination_blob_name):
 
 
 def get_config_file(config_filepath):
+    """Reads a configuration file in YAML format.
+    Args:
+        config_filepath (str): Path to the configuration file.
+    Returns:
+        dict: Parsed configuration as a dictionary.
+    Raises:
+        FileNotFoundError: If the file does not exist or cannot be read.
+    """
     try:
         with open(config_filepath, 'r') as file:
             config = yaml.safe_load(file)

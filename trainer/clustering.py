@@ -19,10 +19,10 @@ def initiate_centroids(k, df):
 
 # STEP 2 - define distance metric : Euclidean distance
 def eucl_dist(p1x, p1y, p2x, p2y):
-    """Finds the ec
-
+    """Finds the euclidean distance between two points in a 2D space.
+    The function takes the x and y coordinates of two points and returns the distance between them.
     Args:
-        p1x (_type_): _description_
+        p1x (_type_): 
         p1y (_type_): _description_
         p2x (_type_): _description_
         p2y (_type_): _description_
