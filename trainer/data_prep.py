@@ -24,7 +24,6 @@ def read_data(filename: str) -> pd.DataFrame:
         raise e
 
 
-
 def get_unique_restauraunts(processed_df) -> Tuple[pd.DataFrame, int]:
     """Get unique restaurants from the processed DataFrame
     Args:

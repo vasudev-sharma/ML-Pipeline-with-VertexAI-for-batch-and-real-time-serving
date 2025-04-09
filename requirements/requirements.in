@@ -5,6 +5,7 @@ scikit-learn==1.5.2
 mypy
 black
 bandit
+ruff
 google-cloud-storage
 google-cloud-aiplatform
 pydantic

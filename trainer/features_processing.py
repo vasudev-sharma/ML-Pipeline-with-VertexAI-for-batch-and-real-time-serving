@@ -11,8 +11,7 @@ from sklearn.preprocessing import LabelEncoder
 
 # calc. eucl. distances to restaurants arrays
 def calc_dist(p1x, p1y, p2x, p2y):
-    """finds the euclidean distance between two points in a 2D space.
-    """
+    """finds the euclidean distance between two points in a 2D space."""
     p1 = (p2x - p1x) ** 2
     p2 = (p2y - p1y) ** 2
     dist = np.sqrt(p1 + p2)
@@ -21,8 +20,7 @@ def calc_dist(p1x, p1y, p2x, p2y):
 
 # calc. avg. distance to restaurants
 def avg_dist_to_restaurants(courier_lat, courier_lon, restaurants_ids):
-    """calculates the average distance to all restaurants
-    """    
+    """calculates the average distance to all restaurants"""
     return np.mean(
         [
             calc_dist(v["lat"], v["lon"], courier_lat, courier_lon)
@@ -32,8 +30,7 @@ def avg_dist_to_restaurants(courier_lat, courier_lon, restaurants_ids):
 
 
 def calc_haversine_dist(lat1, lon1, lat2, lon2):
-    """Calculates the haversine distance between two points on the Earth specified in decimal degrees
-    """
+    """Calculates the haversine distance between two points on the Earth specified in decimal degrees"""
     R = 6372.8  # 3959.87433  this is in miles.  For Earth radius in kilometers use 6372.8 km
     if isinstance(lat1, collections.abc.Sequence):
         dLat = np.array([radians(l2 - l1) for l2, l1 in zip(lat2, lat1)])
@@ -54,8 +51,7 @@ def calc_haversine_dist(lat1, lon1, lat2, lon2):
 
 # calc. avg. distance to restaurants
 def avg_Hdist_to_restaurants(courier_lat, courier_lon, restaurants_ids):
-    """calculates the average distance to all restaurants
-    """
+    """calculates the average distance to all restaurants"""
     return np.mean(
         [
             calc_haversine_dist(v["lat"], v["lon"], courier_lat, courier_lon)
@@ -76,8 +72,7 @@ def Encoder(df):
 
 
 def feature_engineering(df: pd.DataFrame, dict_ids: Dict[str, Dict[str, int]]):
-    """Feature engineering for the dataset
-    """
+    """Feature engineering for the dataset"""
     df["dist_to_restaurant"] = calc_dist(
         df.courier_lat,
         df.courier_lon,

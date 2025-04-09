@@ -43,7 +43,7 @@ google-auth==2.38.0
     #   google-cloud-core
     #   google-cloud-resource-manager
     #   google-cloud-storage
-google-cloud-aiplatform==1.87.0
+google-cloud-aiplatform==1.88.0
     # via -r requirements/requirements.in
 google-cloud-bigquery==3.31.0
     # via google-cloud-aiplatform
@@ -166,6 +166,8 @@ rich==14.0.0
     # via bandit
 rsa==4.9
     # via google-auth
+ruff==0.11.4
+    # via -r requirements/requirements.in
 scikit-learn==1.5.2
     # via -r requirements/requirements.in
 scipy==1.13.1

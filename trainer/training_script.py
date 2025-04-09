@@ -5,16 +5,12 @@ import os
 from trainer.training import save_model
 
 from trainer.data_prep import get_restaurants_df, process_data
-from trainer.features_processing import (
-    feature_engineering,
-    Encoder
-)
+from trainer.features_processing import feature_engineering, Encoder
 from trainer.clustering import run_clustering, order_busyness
 from trainer.training import generate_ds, load_data
 from trainer.utils import get_config_file, upload_to_gcs
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import GridSearchCV, train_test_split
-
 
 
 logger = logging.getLogger()
@@ -25,25 +21,26 @@ np.random.seed(1)
 
 if __name__ == "__main__":
 
-    train_config = get_config_file('configs/training_config.yaml')
-
+    train_config = get_config_file("configs/training_config.yaml")
 
     # Data processing
     # DO something with process data
-    filename = train_config['data']['filename_uri']  # TODO: Add config.yaml for hardcoded values
+    filename = train_config["data"][
+        "filename_uri"
+    ]  # TODO: Add config.yaml for hardcoded values
     # print("Earlier filename is", filename)
     # print("type of data is", type(filename))
-    if str(filename) == "None":  # TODO: fixme 
+    if str(filename) == "None":  # TODO: fixme
         # print("local storage")
-        filename = train_config['data']['filename']
-        processed_df = process_data(filename=filename) # TODO: READ
+        filename = train_config["data"]["filename"]
+        processed_df = process_data(filename=filename)  # TODO: READ
     else:
-        processed_df = load_data(bucket_name=train_config['data']['bucket_name'], blob_path=train_config['data']['blob_path'])
-    
+        processed_df = load_data(
+            bucket_name=train_config["data"]["bucket_name"],
+            blob_path=train_config["data"]["blob_path"],
+        )
+
     print("The filename is ", filename)
-
-
-    
 
     logging.info("***" * 10)
     logging.info(processed_df.head())
@@ -64,8 +61,8 @@ if __name__ == "__main__":
 
     # clustering
 
-    k = train_config['clustering']['k']
-    resolution = train_config['clustering']['resolution']
+    k = train_config["clustering"]["k"]
+    resolution = train_config["clustering"]["resolution"]
     h3_clustered_df = run_clustering(k, restaurants_df, restaurants_ids, resolution)
 
     logging.info(h3_clustered_df.head())
@@ -74,21 +71,22 @@ if __name__ == "__main__":
     busyness_df = order_busyness(h3_clustered_df)
     logging.info(busyness_df.head())
 
-
-
     # TODO: Save cleaned up dataset
 
     # Label Encoding
     busyness_df["h3_index"] = busyness_df.h3_index.astype("category")
-    busyness_df= Encoder(busyness_df)
+    busyness_df = Encoder(busyness_df)
     logging.info(busyness_df.head())
 
     # Training: data prep + training model
     # X_train, X_test, y_train, y_test = generate_ds(busyness_df, split_size=0.33, random_state=42)
-    
+
     X, y = generate_ds(busyness_df)
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=train_config['data']['test_size'], random_state=train_config['data']['random_state']
+        X,
+        y,
+        test_size=train_config["data"]["test_size"],
+        random_state=train_config["data"]["random_state"],
     )
 
     # X_train, X_val, y_train, y_val = generate_ds(X_train, y_train,  split_size=0.33, random_state=42)
@@ -99,12 +97,14 @@ if __name__ == "__main__":
     regr.fit(X_train, y_train)
     regr.score(X_test, y_test)
 
-
-
-
     # Instantiate the grid search model
     grid_search = GridSearchCV(
-        estimator=regr, param_grid=train_config['model']['grid_search']['params'], cv=3, n_jobs=-1, verbose=1, scoring="r2"
+        estimator=regr,
+        param_grid=train_config["model"]["grid_search"]["params"],
+        cv=3,
+        n_jobs=-1,
+        verbose=1,
+        scoring="r2",
     )
 
     # Fit the Grid Search
@@ -112,30 +112,26 @@ if __name__ == "__main__":
 
     logging.info(grid_search.best_score_)
 
-    
     # Get the best model
     rf_best = grid_search.best_estimator_
     rf_best
 
     model = rf_best
-    
+
     # Environment variable for Vertex AI
     MODEL_DIR = os.getenv("AIP_MODEL_DIR")
-    model_filepath =  'model.pkl'
+    model_filepath = "model.pkl"
     if not MODEL_DIR:
-        MODEL_DIR = "" # Save it locally in model directly
-        save_model(model,'model.pkl')
+        MODEL_DIR = ""  # Save it locally in model directly
+        save_model(model, "model.pkl")
         logging.info("Model is saved as: model.pkl'")
     else:
         # Save the best model
         save_model(model, model_filepath)
 
-        gcs_path = upload_to_gcs(bucket_name=train_config['model']['bucket_name'], source_file_path=model_filepath, destination_blob_name=train_config['model']['blob_path'])
+        gcs_path = upload_to_gcs(
+            bucket_name=train_config["model"]["bucket_name"],
+            source_file_path=model_filepath,
+            destination_blob_name=train_config["model"]["blob_path"],
+        )
         logging.info(f"Model is saved to : {gcs_path}")
-
-
-
-
-
-
-

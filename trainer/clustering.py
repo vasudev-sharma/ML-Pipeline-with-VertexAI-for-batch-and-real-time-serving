@@ -1,6 +1,6 @@
 # clustering.py
 import numpy as np
-import pandas as pd # type: ignore
+import pandas as pd  # type: ignore
 from trainer.features_processing import calc_dist
 from typing import Dict
 import h3
@@ -22,7 +22,7 @@ def eucl_dist(p1x, p1y, p2x, p2y):
     """Finds the euclidean distance between two points in a 2D space.
     The function takes the x and y coordinates of two points and returns the distance between them.
     Args:
-        p1x (_type_): 
+        p1x (_type_):
         p1y (_type_): _description_
         p2x (_type_): _description_
         p2y (_type_): _description_
@@ -63,8 +63,10 @@ def centroid_assignation(df, centroids):
 
 def h3_clustering(resolution, df):
 
-    # Issue with 
-    df["courier_location_timestamp"] = pd.to_datetime(df["courier_location_timestamp"], format='mixed')
+    # Issue with
+    df["courier_location_timestamp"] = pd.to_datetime(
+        df["courier_location_timestamp"], format="mixed"
+    )
     df["order_created_timestamp"] = pd.to_datetime(df["order_created_timestamp"])
     df["h3_index"] = [
         h3.latlng_to_cell(lat, lon, resolution)

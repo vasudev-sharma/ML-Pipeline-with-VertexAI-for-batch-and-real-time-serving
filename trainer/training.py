@@ -1,11 +1,10 @@
 import logging
 import pickle
 import pandas as pd
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.preprocessing import LabelEncoder
 from google.cloud import storage
 from io import BytesIO
+
 
 def load_data(bucket_name, blob_path):
     """Load data from GCS bucket
@@ -77,6 +76,7 @@ def generate_ds(df):
     y = df[["orders_busyness_by_h3_hour"]]
 
     return X, y
+
 
 def combine_ds_and_save(X, y, filename):
     combine_ds = pd.concat((X, y), axis=1)
