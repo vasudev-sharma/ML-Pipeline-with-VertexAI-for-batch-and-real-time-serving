@@ -45,12 +45,12 @@ jobs:
         ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPO_NAME }}/${{ secrets.IMAGE_NAME }}:prod
 
 
-    - name: Build production image
+    - name: Build training image
       run: |
-        docker build -f Dockerfile.production . -t \
+        docker build -f Dockerfile.training . -t \
         ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPO_NAME }}/${{ secrets.IMAGE_NAME }}:train
 
-    - name: Push production image
+    - name: Push training image
       run: |
         docker push \
         ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPO_NAME }}/${{ secrets.IMAGE_NAME }}:train
