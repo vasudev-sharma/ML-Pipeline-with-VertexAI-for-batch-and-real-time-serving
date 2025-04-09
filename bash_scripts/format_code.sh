@@ -7,12 +7,12 @@ printf "Running Ruff........\n\n"
 ruff check . --exit-zero
 
 printf "\n\nRunning MyPy.....\n\n"
-mypy .
+mypy . --explicit-package-bases --ignore-imports
 
 printf "\n\nRunning black.....\n\n"
 black . --check 
 
-prinf "\n\nRunning bandit.....\n\n"
+printf "\n\nRunning bandit.....\n\n"
 bandit -r . -f txt --exit-zero
 
 

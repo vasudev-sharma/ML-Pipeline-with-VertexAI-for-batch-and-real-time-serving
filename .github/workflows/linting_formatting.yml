@@ -22,11 +22,8 @@ jobs:
       - name: Run Ruff
         run: ruff check . --exit-zero
       
-      # - name: Run Flake8
-      #   run: flake8 .  # Check all files in repo
-      
       - name: Run Mypy
-        run: mypy .    # Type-check all Python files
+        run: mypy . --explicit-package-bases --ignore-imports    # Type-check all Python files
 
       - name: Run Bandit Security scan 
         run:  bandit -r . -f txt --exit-zero

@@ -3,10 +3,10 @@
 
 import collections
 from math import radians
-import pandas as pd
+import pandas as pd  # type: ignore
 from typing import Dict
 import numpy as np
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import LabelEncoder  # type: ignore
 
 
 # calc. eucl. distances to restaurants arrays

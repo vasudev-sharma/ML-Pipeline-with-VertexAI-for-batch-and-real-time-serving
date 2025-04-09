@@ -80,7 +80,7 @@ def h3_clustering(resolution, df):
 
 def run_clustering(
     k: int, df: pd.DataFrame, dict_ids: Dict[str, Dict[str, int]], resolution: int
-):
+) -> pd.DataFrame:
     centroids_init = pd.DataFrame(
         [{"lat": v["lat"], "lon": v["lon"]} for v in dict_ids.values()]
     )

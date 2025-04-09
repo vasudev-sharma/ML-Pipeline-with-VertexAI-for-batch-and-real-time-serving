@@ -3,7 +3,7 @@ import numpy as np
 import os
 from trainer.training import save_model
 
-from trainer.data_prep import get_restaurants_df, process_data
+from trainer.data_prep import get_restaurants_df, read_data
 from trainer.features_processing import feature_engineering, Encoder
 from trainer.clustering import run_clustering, order_busyness
 from trainer.training import generate_ds, load_data
@@ -32,7 +32,7 @@ if __name__ == "__main__":
     if str(filename) == "None":  # TODO: fixme
         # print("local storage")
         filename = train_config["data"]["filename"]
-        processed_df = process_data(filename=filename)  # TODO: READ
+        processed_df = read_data(filename=filename)  # TODO: READ
     else:
         processed_df = load_data(
             bucket_name=train_config["data"]["bucket_name"],
@@ -47,16 +47,10 @@ if __name__ == "__main__":
     logging.info("***" * 10)
     restaurants_df, restaurants_ids = get_restaurants_df(processed_df)
 
-    # Fetch couriers
-    logging.info(f"Length of unique elements is: {len(restaurants_ids)}")
-    logging.info(f"The restaurant dataframe is: {restaurants_df}")
-
     # feature engineering
     logging.info("\n\n*********" * 10)
     logging.info(f"DataFrame after feature processing is: {restaurants_df}")
     restaurants_df = feature_engineering(restaurants_df, restaurants_ids)
-    logging.info(type(restaurants_ids))
-    logging.info(restaurants_ids)
 
     # clustering
 

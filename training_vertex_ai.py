@@ -62,24 +62,27 @@ if __name__ == "__main__":
         sync=config["SYNC"],
     )
 
-    print("\n\n")
-    # Do batch predcitions with Vertex AI model
-    batch_prediction_job = model.batch_predict(
-        job_display_name=MODEL_DISPLAY_NAME + "-batch-job",
-        gcs_source=f"gs://{config['data']['bucket_name']}/{config['data']['filename']}",
-        gcs_destination_prefix=f"gs://{config['data']['bucket_name']}",
-        instances_format="csv",
-        machine_type=config["TRAIN_COMPUTE"],
-        accelerator_count=accelerator_count,
-        accelerator_type=accelerator_type,
-        starting_replica_count=config["START_REPLICA"],
-        max_replica_count=config["MAX_REPLICA"],
-        sync=config["SYNC"],
-    )
+    if model:
+        print("Model training completed successfully.")
 
-    batch_prediction_job.wait()
-    print(batch_prediction_job.display_name)
-    print(batch_prediction_job.resource_name)
-    print(batch_prediction_job.state)
+        print("\n\n Generating Batch Predictions ................. \n\n")
+        # Do batch predcitions with Vertex AI model
+        batch_prediction_job = model.batch_predict(
+            job_display_name=MODEL_DISPLAY_NAME + "-batch-job",
+            gcs_source=f"gs://{config['data']['bucket_name']}/{config['data']['filename']}",
+            gcs_destination_prefix=f"gs://{config['data']['bucket_name']}",
+            instances_format="csv",
+            machine_type=config["TRAIN_COMPUTE"],
+            accelerator_count=accelerator_count,
+            accelerator_type=accelerator_type,
+            starting_replica_count=config["START_REPLICA"],
+            max_replica_count=config["MAX_REPLICA"],
+            sync=config["SYNC"],
+        )
 
-    # Add model deployment logic as well:
+        batch_prediction_job.wait()
+        print(batch_prediction_job.display_name)
+        print(batch_prediction_job.resource_name)
+        print(batch_prediction_job.state)
+
+        # Add model deployment logic as well:

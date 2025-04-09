@@ -12,5 +12,6 @@ pydantic
 fastapi
 pydantic
 uvicorn
+types-PyYAML 
 # Add safety checks and vulnerabilities in dependencies
 

@@ -188,6 +188,8 @@ tomli==2.2.1
     # via
     #   black
     #   mypy
+types-pyyaml==6.0.12.20250402
+    # via -r requirements/requirements.in
 typing-extensions==4.13.1
     # via
     #   anyio

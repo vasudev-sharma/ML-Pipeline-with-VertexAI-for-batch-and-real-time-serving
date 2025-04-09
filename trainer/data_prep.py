@@ -23,7 +23,7 @@ def read_data(filename: str) -> pd.DataFrame:
         raise e
 
 
-def get_unique_restauraunts(processed_df) -> Tuple[pd.DataFrame, int]:
+def get_unique_restauraunts(processed_df) -> Tuple[pd.DataFrame, dict]:
     """Get unique restaurants from the processed DataFrame
     Args:
         processed_df (pd.DataFrame): The processed DataFrame
@@ -54,7 +54,7 @@ def get_unique_restauraunts(processed_df) -> Tuple[pd.DataFrame, int]:
 
 
 # TODO: Change fn name
-def get_restaurants_df(df: pd.DataFrame) -> Tuple[pd.DataFrame, int]:
+def get_restaurants_df(df: pd.DataFrame) -> Tuple[pd.DataFrame, dict]:
     """Get the restaurants DataFrame and the number of unique restaurants"""
 
     # Unique restaurants
