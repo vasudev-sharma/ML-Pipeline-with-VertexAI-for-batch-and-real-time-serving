@@ -89,3 +89,7 @@ JSON
 
 
 1. 
+
+
+## Training
+Issue with Vertex AI image (the base image has to be inherited from Scikit-learn image)
