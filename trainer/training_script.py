@@ -125,11 +125,12 @@ if __name__ == "__main__":
     if not MODEL_DIR:
         MODEL_DIR = "" # Save it locally in model directly
         save_model(model,'model.pkl')
+        logging.info("Model is saved as: model.pkl'")
     else:
         # Save the best model
-        save_model(model, f'{MODEL_DIR}/model.pkl')
+        save_model(model, f'{MODEL_DIR}model.pkl')
+        logging.info(f"Model is saved to : {MODEL_DIR}model.pkl'")
 
-    logging.info(f"Model is saved to  '{MODEL_DIR}/model.pkl'")
 
 
 
