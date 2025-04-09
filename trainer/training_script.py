@@ -128,8 +128,8 @@ if __name__ == "__main__":
         logging.info("Model is saved as: model.pkl'")
     else:
         # Save the best model
-        save_model(model, f'{MODEL_DIR}model.pkl')
-        logging.info(f"Model is saved to : {MODEL_DIR}model.pkl'")
+        save_model(model, save_dir)
+        logging.info(f"Model is saved to : {save_dir}")
 
 
 
