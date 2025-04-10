@@ -2,10 +2,8 @@ name: Run Unit Tests
 
 on:
   workflow_run:
-    workflows:
-      - Linting and Formatting
-    types:
-      - completed
+    workflows: ["Linting and Formatting"]
+    types: [completed]
     # push:
     #     branches:
     #         - master
