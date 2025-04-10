@@ -6,10 +6,10 @@ data:
   bucket_name: busyness-data
   blob_path: final_dataset.csv
 
-  processed_filename_uri: 'gs://busyness-data/processed_data/preprocessed_data.csv'
-  train_dataset_filename_uri: 'gs://busyness-data/processed_data/data_split/train_dataset.csv'
-  val_dataset_filename_uri: 'gs://busyness-data/processed_data/data_split/val_dataset.csv'
-  test_dataset_filename_uri: 'gs://busyness-data/processed_data/data_split/test_dataset.csv'
+  processed_filename_uri: 'gs://busyness-data/processed_data'
+  train_dataset_filename_uri: 'gs://busyness-data/processed_data/data_split/train_dataset'
+  val_dataset_filename_uri: 'gs://busyness-data/processed_data/data_split/val_dataset'
+  test_dataset_filename_uri: 'gs://busyness-data/processed_data/data_split/test_dataset'
   
   # filename_uri: None
   
@@ -33,7 +33,9 @@ model:
   model_artifacts_uri: 'gs://vasu-bucket/artifacts'
 
   # filename_uri: 'gs:/vasu-bucket/artifacts/model'
-  # Model details
+
+
+  # Model parameters and hyperparameters
   max_depth: 4
   random_state: 0
   n_jobs: -1
@@ -57,8 +59,8 @@ TRAIN_COMPUTE: "n1-standard-4"
 SYNC: True
 START_REPLICA: 1
 MAX_REPLICA: 1
-DEPLOY_IMAGE: 'us-docker.pkg.dev/vertex-ai/prediction/sklearn-cpu.1-5:latest'
-# DEPLOY_IMAGE: us-central1-docker.pkg.dev/keen-airlock-455922-q4/skip-the-dishesv2/test_image:inf
+# DEPLOY_IMAGE: 'us-docker.pkg.dev/vertex-ai/prediction/sklearn-cpu.1-5:latest'
+DEPLOY_IMAGE: us-central1-docker.pkg.dev/keen-airlock-455922-q4/skip-the-dishesv2/test_image:inf
 PROJECT_ID: 'keen-airlock-455922-q4'
 REGION: 'us-central1'
 TRAIN_GPU: False

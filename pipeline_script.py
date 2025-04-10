@@ -1,6 +1,7 @@
 from typing import Union, List
 import google.cloud.aiplatform as aiplatform
 from trainer.utils import get_config_file
+import argparse
 
 
 def deploy_model(model, config):
@@ -70,11 +71,10 @@ def create_and_import_dataset_tabular_gcs_sample(
     return dataset
 
 
-if __name__ == "__main__":
 
-    # TODO: Add logging on Training and batch predictions
+def run_pipeline(args, config, pipeline_config):
 
-    config = get_config_file("configs/training_config.yaml")
+   
     aiplatform.init(
         project=config["PROJECT_ID"],
         location=config["REGION"],
@@ -108,41 +108,59 @@ if __name__ == "__main__":
         sync=config["SYNC"],
     )
 
-    # if model:
-    #     print("Model training completed successfully.")
+    print("Model training completed successfully.")
+    if model and args.batch:
 
-    #     print("\n\n Generating Batch Predictions ................. \n\n")
-    #     # Do batch predcitions with Vertex AI model
-    #     batch_prediction_job = model.batch_predict(
-    #         job_display_name=MODEL_DISPLAY_NAME + "-batch-job",
-    #         gcs_source=f"gs://{config['data']['bucket_name']}/{config['data']['filename']}",
-    #         gcs_destination_prefix=f"gs://{config['data']['bucket_name']}",
-    #         instances_format="csv",
-    #         machine_type=config["TRAIN_COMPUTE"],
-    #         accelerator_count=accelerator_count,
-    #         accelerator_type=accelerator_type,
-    #         starting_replica_count=config["START_REPLICA"],
-    #         max_replica_count=config["MAX_REPLICA"],
-    #         sync=config["SYNC"],
-    #     )
+        print("\n\n Generating Batch Predictions ................. \n\n")
+        # Do batch predcitions with Vertex AI model
+        batch_prediction_job = model.batch_predict(
+            job_display_name=MODEL_DISPLAY_NAME + "-batch-job",
+            gcs_source=f"gs://{config['data']['bucket_name']}/{config['data']['filename']}",
+            gcs_destination_prefix=f"gs://{config['data']['bucket_name']}",
+            instances_format="csv",
+            machine_type=config["TRAIN_COMPUTE"],
+            accelerator_count=accelerator_count,
+            accelerator_type=accelerator_type,
+            starting_replica_count=config["START_REPLICA"],
+            max_replica_count=config["MAX_REPLICA"],
+            sync=config["SYNC"],
+        )
 
-    #     batch_prediction_job.wait()
-    #     print(batch_prediction_job.display_name)
-    #     print(batch_prediction_job.resource_name)
-    #     print(batch_prediction_job.state)
+        batch_prediction_job.wait()
+        print(batch_prediction_job.display_name)
+        print(batch_prediction_job.resource_name)
+        print(batch_prediction_job.state)
 
     #     # Add model deployment logic as well:
 
     # # DEPLOY ENDPOINT ONLINE
-    # pipeline_config = get_config_file("configs/pipeline_config.yaml")
+    
 
-    # # # Upload model
-    # # model = upload_model_to_vertex_registry(
-    # #     pipeline_config["model_name"],
-    # #     pipeline_config["MODEL_DIR"],
-    # #     pipeline_config["DEPLOY_IMAGE"],
-    # # )
-    # # print(model)
+    # # Upload model
+    # model = upload_model_to_vertex_registry(
+    #     pipeline_config["model_name"],
+    #     pipeline_config["MODEL_DIR"],
+    #     pipeline_config["DEPLOY_IMAGE"],
+    # )
+    # print(model)
 
-    # # Deploy model to endpoint
-    # deploy_model(model, pipeline_config)
+    if args.deploy:
+
+        print("\n\n Deploying Model to endpoint for batch predictions ................. \n\n")
+        # Deploy model to endpoint
+        deploy_model(model, pipeline_config)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--batch", type=bool, action=argparse.BooleanOptionalAction, default=True, help="whether to run batch inference on model")
+    parser.add_argument("--deploy", type=bool, action=argparse.BooleanOptionalAction, default=True, help="whether to deploy model to endpoint")
+    args = parser.parse_args()
+    train_config = get_config_file("configs/training_config.yaml")
+    pipeline_config = get_config_file("configs/pipeline_config.yaml")
+    
+
+    # Run Training + [optional] Batch inference + [optional]Online inference
+    run_pipeline(args, config=train_config, pipeline_config=pipeline_config)
+
+
+

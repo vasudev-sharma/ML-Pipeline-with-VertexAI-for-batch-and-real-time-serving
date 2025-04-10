@@ -162,11 +162,19 @@ jobs:
     - name: Configure Docker
       run: gcloud auth configure-docker ${{ secrets.REGION }}-docker.pkg.dev --quiet
 
-    # - name: Train and perform Batch Prediction
+    # - name: Train and Batch Prediction + Endpoint deployment
     #   run: |
-    #      python pipeline_script.py
+    #      python pipeline_script.py --batch --deploy
 
-    # - name: Deploy model to Vertex AI
+    # - name: Train model
     #   run: |
-    #      python pipeline_script.py   
+    #      python pipeline_script.py --no-batch --no-deploy
+
+    # - name: Train model + Deploy Endpoint
+    #   run: |
+    #      python pipeline_script.py --no-batch --deploy
+
+    # - name: Train model + Batch Prediction
+    #   run: |
+    #      python pipeline_script.py --batch --no-deploy
 
