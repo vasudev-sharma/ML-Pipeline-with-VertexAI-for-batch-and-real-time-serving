@@ -12,11 +12,15 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import GridSearchCV, train_test_split
 
 
+
+
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)  # SET THE LEVEL OF Logging in Python
 
 # Deterministic imports
 np.random.seed(1)
+
+
 
 if __name__ == "__main__":
 
@@ -45,6 +49,8 @@ if __name__ == "__main__":
 
     logging.info("***" * 10)
     logging.info(processed_df.head())
+
+
 
     logging.info("***" * 10)
     restaurants_df, restaurants_ids = get_restaurants_df(processed_df)
@@ -79,7 +85,7 @@ if __name__ == "__main__":
     if flag_cloud_storage:
         # Save to GCP
         busyness_df.to_csv(train_config["data"]["processed_filename_uri"], index=False)
-
+        logging.info(f"Saving processed data @: {train_config["data"]["processed_filename_uri"]}")
     X, y = generate_ds(busyness_df)
     X_train, X_test, y_train, y_test = train_test_split(
         X,
@@ -100,10 +106,10 @@ if __name__ == "__main__":
     grid_search = GridSearchCV(
         estimator=regr,
         param_grid=train_config["model"]["grid_search"]["params"],
-        cv=3,
-        n_jobs=-1,
+        cv=train_config['model']['grid_search']['cv'],
+        n_jobs=train_config['model']['grid_search']['n_jobs'],
         verbose=1,
-        scoring="r2",
+        scoring=train_config['model']['grid_search']['scoring'],
     )
 
     # Fit the Grid Search
