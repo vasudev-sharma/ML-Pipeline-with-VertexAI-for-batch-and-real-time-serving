@@ -6,8 +6,8 @@ on:
         - Linting and Formatting
     types:
         - completed
-  push:
-    branches: [master]
+  # push:
+  #   branches: [master]
 
 jobs:
   build-and-push:

@@ -8,8 +8,8 @@ on:
         - Build and Push Development Image to GAR
     types:
         - completed
-  push:
-    branches: [master]
+  # push:
+  #   branches: [master]
 
 jobs:
   build-and-push:
