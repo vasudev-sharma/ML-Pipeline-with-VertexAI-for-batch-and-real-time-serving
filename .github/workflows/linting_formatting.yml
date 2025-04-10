@@ -17,7 +17,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          pip install ruff bandit mypy black
+          pip install ruff bandit mypy black types-PyYAML
 
       - name: Run Ruff
         run: ruff check . --exit-zero
