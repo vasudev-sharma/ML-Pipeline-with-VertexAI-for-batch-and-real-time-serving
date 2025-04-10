@@ -11,5 +11,6 @@ google-cloud-aiplatform
 fsspec
 gcsfs
 types-PyYAML 
+flask
 # Add safety checks and vulnerabilities in dependencies
 
