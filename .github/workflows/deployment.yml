@@ -23,8 +23,9 @@ jobs:
       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
       REGION: ${{ secrets.REGION }}
     container:
-      # image:  us-docker.pkg.dev/"${{ env.PROJECT_ID }}"/"${{ env.REPO_NAME }}"/"${{ env.IMAGE_NAME }}":dev #TODO: fix image
-      image:  "us-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME:dev" #TODO: fix image
+      # image:  "us-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME:dev" #TODO: fix image
+      image: us-central1-docker.pkg.dev/keen-airlock-455922-q4/skip-the-dishesv2/test_image:dev
+
       credentials:
         username: _json_key
         password: ${{ secrets.GAR_JSON_KEY }}  # Base64-encoded service account key
