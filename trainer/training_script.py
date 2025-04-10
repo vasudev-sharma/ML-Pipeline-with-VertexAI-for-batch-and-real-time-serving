@@ -7,12 +7,10 @@ import pandas as pd
 from trainer.data_prep import get_restaurants_df, read_data
 from trainer.features_processing import feature_engineering, Encoder
 from trainer.clustering import run_clustering, order_busyness
-from trainer.training import generate_ds, load_csv_data, combine_ds
+from trainer.training import generate_ds, load_csv_data
 from trainer.utils import get_config_file, upload_to_gcs
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import GridSearchCV, train_test_split
-
-
 
 
 logger = logging.getLogger()
@@ -22,7 +20,6 @@ logger.setLevel(logging.DEBUG)  # SET THE LEVEL OF Logging in Python
 np.random.seed(1)
 
 
-
 if __name__ == "__main__":
 
     train_config = get_config_file("configs/training_config.yaml")
@@ -30,9 +27,7 @@ if __name__ == "__main__":
     flag_cloud_storage = False
     # Data processing
     # DO something with process data
-    filename = train_config["data"][
-        "filename_uri"
-    ]  # TODO: Add config.yaml for hardcoded values
+    filename = train_config["data"]["filename_uri"]
     # print("Earlier filename is", filename)
     # print("type of data is", type(filename))
     if str(filename) == "None":  # TODO: fixme
@@ -50,8 +45,6 @@ if __name__ == "__main__":
 
     logging.info("***" * 10)
     logging.info(processed_df.head())
-
-
 
     logging.info("***" * 10)
     restaurants_df, restaurants_ids = get_restaurants_df(processed_df)
@@ -86,7 +79,9 @@ if __name__ == "__main__":
     if flag_cloud_storage:
         # Save to GCP
         busyness_df.to_csv(train_config["data"]["processed_filename_uri"], index=False)
-        logging.info(f"Saving processed data @: {train_config["data"]["processed_filename_uri"]}")
+        logging.info(
+            f"Saving processed data @: {train_config['data']['processed_filename_uri']}"
+        )
     X, y = generate_ds(busyness_df)
 
     # Train + val, test dataset
@@ -105,16 +100,20 @@ if __name__ == "__main__":
         random_state=train_config["data"]["random_state"],
     )
 
-
-    if flag_cloud_storage: 
+    if flag_cloud_storage:
 
         # Training Data
-        pd.concat((X_train, y_train), axis=1).to_csv(train_config["data"]["train_dataset_filename_uri"], index=False)
+        pd.concat((X_train, y_train), axis=1).to_csv(
+            train_config["data"]["train_dataset_filename_uri"], index=False
+        )
         # Validation
-        pd.concat((X_val, y_val), axis=1).to_csv(train_config["data"]["val_dataset_filename_uri"], index=False)
+        pd.concat((X_val, y_val), axis=1).to_csv(
+            train_config["data"]["val_dataset_filename_uri"], index=False
+        )
         # Testing Data
-        pd.concat((X_test, y_test), axis=1).to_csv(train_config["data"]["test_dataset_filename_uri"], index=False)
-    
+        pd.concat((X_test, y_test), axis=1).to_csv(
+            train_config["data"]["test_dataset_filename_uri"], index=False
+        )
 
     # X_train, X_val, y_train, y_val = generate_ds(X_train, y_train,  split_size=0.33, random_state=42)
 
@@ -128,10 +127,10 @@ if __name__ == "__main__":
     grid_search = GridSearchCV(
         estimator=regr,
         param_grid=train_config["model"]["grid_search"]["params"],
-        cv=train_config['model']['grid_search']['cv'],
-        n_jobs=train_config['model']['grid_search']['n_jobs'],
+        cv=train_config["model"]["grid_search"]["cv"],
+        n_jobs=train_config["model"]["grid_search"]["n_jobs"],
         verbose=1,
-        scoring=train_config['model']['grid_search']['scoring'],
+        scoring=train_config["model"]["grid_search"]["scoring"],
     )
 
     # Fit the Grid Search
