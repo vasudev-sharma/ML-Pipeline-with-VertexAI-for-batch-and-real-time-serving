@@ -12,9 +12,11 @@ We use pip-tools to manage dependencies. While developing or building, first
 
 
 ## CI/CD Workflow
-images/ci_cd.png
+https://github.com/vasudev-sharma/skipTheDishes_ML_challenge/blob/main/images/ci_cd.png
 
 ## Pipeline
+
+https://github.com/vasudev-sharma/skipTheDishes_ML_challenge/blob/main/images/pipeline.png
 
 Entrypoint: `python pipeline_script.py`
 The pipeline feeds in `configs/pipline_config.yaml` file to run the pipeline.
