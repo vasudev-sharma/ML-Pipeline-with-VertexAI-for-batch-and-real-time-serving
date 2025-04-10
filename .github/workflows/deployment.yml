@@ -16,14 +16,15 @@ jobs:
   
   deploy-model:
     # needs: auth-docker-gcp
+    runs-on: ubuntu-latest
     env: 
       PROJECT_ID: ${{ secrets.PROJECT_ID }}
       REPO_NAME: ${{ secrets.REPO_NAME }}
       IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
       REGION: ${{ secrets.REGION }}
-    runs-on: ubuntu-latest
     container:
-      image:  "us-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ env.IMAGE_NAME }}:dev" #TODO: fix it
+      # image:  us-docker.pkg.dev/"${{ env.PROJECT_ID }}"/"${{ env.REPO_NAME }}"/"${{ env.IMAGE_NAME }}":dev #TODO: fix image
+      image:  "us-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME:dev" #TODO: fix image
       credentials:
         username: _json_key
         password: ${{ secrets.GAR_JSON_KEY }}  # Base64-encoded service account key
