@@ -71,10 +71,8 @@ def create_and_import_dataset_tabular_gcs_sample(
     return dataset
 
 
-
 def run_pipeline(args, config, pipeline_config):
 
-   
     aiplatform.init(
         project=config["PROJECT_ID"],
         location=config["REGION"],
@@ -84,10 +82,12 @@ def run_pipeline(args, config, pipeline_config):
     job = aiplatform.CustomContainerTrainingJob(
         display_name=config["JOB_NAME"],
         command=["python", "-m", "trainer.training_script"],
-        container_uri=config["TRAIN_IMAGE"],  # TODO: Use custom container
+        container_uri=config["TRAIN_IMAGE"],
         model_serving_container_image_uri=config["DEPLOY_IMAGE"],  #
     )
     MODEL_DISPLAY_NAME = config["MODEL_DISPLAY_NAME"]
+
+    # TODO: Save the dataset in Vertex AI
     # dataset = create_and_import_dataset_tabular_gcs_sample(display_name='data', project='keen-airlock-455922-q4', location='us-central1', gcs_source='gs://busyness-data/final_dataset.csv')
 
     if config["TRAIN_GPU"]:
@@ -131,10 +131,7 @@ def run_pipeline(args, config, pipeline_config):
         print(batch_prediction_job.resource_name)
         print(batch_prediction_job.state)
 
-    #     # Add model deployment logic as well:
-
     # # DEPLOY ENDPOINT ONLINE
-    
 
     # # Upload model
     # model = upload_model_to_vertex_registry(
@@ -146,21 +143,32 @@ def run_pipeline(args, config, pipeline_config):
 
     if args.deploy:
 
-        print("\n\n Deploying Model to endpoint for batch predictions ................. \n\n")
+        print(
+            "\n\n Deploying Model to endpoint for batch predictions ................. \n\n"
+        )
         # Deploy model to endpoint
         deploy_model(model, pipeline_config)
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--batch", type=bool, action=argparse.BooleanOptionalAction, default=True, help="whether to run batch inference on model")
-    parser.add_argument("--deploy", type=bool, action=argparse.BooleanOptionalAction, default=True, help="whether to deploy model to endpoint")
+    parser.add_argument(
+        "--batch",
+        type=bool,
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="whether to run batch inference on model",
+    )
+    parser.add_argument(
+        "--deploy",
+        type=bool,
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="whether to deploy model to endpoint",
+    )
     args = parser.parse_args()
     train_config = get_config_file("configs/training_config.yaml")
     pipeline_config = get_config_file("configs/pipeline_config.yaml")
-    
 
-    # Run Training + [optional] Batch inference + [optional]Online inference
+    # Run Training + [optional] Batch inference + [optional]
     run_pipeline(args, config=train_config, pipeline_config=pipeline_config)
-
-
-

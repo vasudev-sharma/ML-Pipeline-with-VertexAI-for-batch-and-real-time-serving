@@ -23,7 +23,6 @@ np.random.seed(1)
 job_id = os.getenv("CLOUD_ML_JOB_ID")
 
 
-
 if __name__ == "__main__":
     logging.info(f"The Job ID is: {job_id}")
     train_config = get_config_file("configs/training_config.yaml")
@@ -82,7 +81,10 @@ if __name__ == "__main__":
 
     if flag_cloud_storage:
         # Save to GCP
-        busyness_df.to_csv(f'{train_config["data"]["processed_filename_uri"]}_{job_id}/processed_data.csv', index=False)
+        busyness_df.to_csv(
+            f'{train_config["data"]["processed_filename_uri"]}_{job_id}/processed_data.csv',
+            index=False,
+        )
         logging.info(
             f"Saving processed data @: {train_config['data']['processed_filename_uri']}"
         )
@@ -108,17 +110,19 @@ if __name__ == "__main__":
 
         # Training Data
         train_data_output = pd.concat((X_train, y_train), axis=1).to_csv(
-            f'{train_config["data"]["processed_filename_uri"]}_{job_id}/train_dataset.csv', index=False
+            f'{train_config["data"]["processed_filename_uri"]}_{job_id}/train_dataset.csv',
+            index=False,
         )
         # Validation
         val_data_output = pd.concat((X_val, y_val), axis=1).to_csv(
-            f'{train_config["data"]["processed_filename_uri"]}_{job_id}/val_dataset.csv', index=False
+            f'{train_config["data"]["processed_filename_uri"]}_{job_id}/val_dataset.csv',
+            index=False,
         )
         # Testing Data
         test_data_output = pd.concat((X_test, y_test), axis=1).to_csv(
-            f'{train_config["data"]["processed_filename_uri"]}_{job_id}/test_dataset.csv', index=False
+            f'{train_config["data"]["processed_filename_uri"]}_{job_id}/test_dataset.csv',
+            index=False,
         )
-
 
     # X_train, X_val, y_train, y_val = generate_ds(X_train, y_train,  split_size=0.33, random_state=42)
 
