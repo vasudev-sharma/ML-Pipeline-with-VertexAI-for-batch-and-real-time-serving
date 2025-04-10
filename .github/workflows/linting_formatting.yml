@@ -36,7 +36,7 @@ jobs:
 
 
   unit-test:
-    needs: ["lint-format"]
+    needs: lint-format
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
