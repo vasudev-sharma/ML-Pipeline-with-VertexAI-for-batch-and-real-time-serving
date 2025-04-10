@@ -147,7 +147,6 @@ if __name__ == "__main__":
     # Get the best model
     rf_best = grid_search.best_estimator_
     rf_best
-
     model = rf_best
 
     # Environment variable for Vertex AI

@@ -10,6 +10,10 @@ We use pip-tools to manage dependencies. While developing or building, first
 2. `pip-compile --upgrade -r requirements/requirements.in`
 3. `pip install -r requirements/requirements.txt`
 
+
+## CI/CD Workflow
+images/ci_cd.png
+
 ## Pipeline
 
 Entrypoint: `python pipeline_script.py`
