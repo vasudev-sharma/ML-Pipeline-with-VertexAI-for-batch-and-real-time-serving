@@ -1,14 +1,14 @@
 import logging
 import numpy as np
 import os
-from trainer.training import save_model
+from src.training import save_model
 import pandas as pd
 
-from trainer.data_prep import get_restaurants_df, read_data
-from trainer.features_processing import feature_engineering, Encoder
-from trainer.clustering import run_clustering, order_busyness
-from trainer.training import generate_ds, load_csv_data
-from trainer.utils import get_config_file, upload_to_gcs
+from src.data_prep import get_restaurants_df, read_data
+from src.features_processing import feature_engineering, Encoder
+from src.clustering import run_clustering, order_busyness
+from src.training import generate_ds, load_csv_data
+from src.utils import get_config_file, upload_to_gcs
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import GridSearchCV, train_test_split
 

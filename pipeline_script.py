@@ -1,6 +1,6 @@
 from typing import Union, List
 import google.cloud.aiplatform as aiplatform
-from trainer.utils import get_config_file
+from src.utils import get_config_file
 import argparse
 
 
@@ -81,7 +81,7 @@ def run_pipeline(args, config, pipeline_config):
 
     job = aiplatform.CustomContainerTrainingJob(
         display_name=config["JOB_NAME"],
-        command=["python", "-m", "trainer.training_script"],
+        command=["python", "-m", "src.training_script"],
         container_uri=config["TRAIN_IMAGE"],
         model_serving_container_image_uri=config["DEPLOY_IMAGE"],  #
     )
