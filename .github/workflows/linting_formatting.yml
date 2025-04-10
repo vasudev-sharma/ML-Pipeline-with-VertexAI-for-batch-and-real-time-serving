@@ -6,14 +6,23 @@ on:
 jobs:  
   lint-format:  
     runs-on: ubuntu-latest
+
+    
     steps:
 
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
       - uses: astral-sh/ruff-action@v1
+      - uses: actions/checkout@v4
 
         with:
           python-version: "3.9"
+          persist-credentials: false  # Disable GITHUB_TOKEN persistence
+
+      - name: Push tag
+        run: git push origin new-tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}  # Use PAT instead
       
       - name: Install dependencies
         run: |
