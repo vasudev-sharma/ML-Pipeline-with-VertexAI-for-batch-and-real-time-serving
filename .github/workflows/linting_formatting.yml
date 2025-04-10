@@ -23,7 +23,7 @@ jobs:
         run: ruff check . --exit-zero
       
       - name: Run Mypy
-        run: mypy . --explicit-package-bases --ignore-imports    # Type-check all Python files
+        run: mypy . --explicit-package-bases --ignore-missing-imports    # Type-check all Python files
 
       - name: Run Bandit Security scan 
         run:  bandit -r . -f txt --exit-zero

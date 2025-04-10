@@ -7,7 +7,7 @@ printf "Running Ruff........\n\n"
 ruff check . --exit-zero
 
 printf "\n\nRunning MyPy.....\n\n"
-mypy . --explicit-package-bases --ignore-imports
+mypy . --explicit-package-bases --ignore-missing-imports
 
 printf "\n\nRunning black.....\n\n"
 black . --check 
