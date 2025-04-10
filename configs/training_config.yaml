@@ -32,8 +32,6 @@ model:
   blob_path: artifacts/model/model.pkl
   model_artifacts_uri: 'gs://vasu-bucket/artifacts'
 
-  # filename_uri: 'gs:/vasu-bucket/artifacts/model'
-
 
   # Model parameters and hyperparameters
   max_depth: 4

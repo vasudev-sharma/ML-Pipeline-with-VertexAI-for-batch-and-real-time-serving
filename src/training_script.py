@@ -31,8 +31,7 @@ if __name__ == "__main__":
     # Data processing
     # DO something with process data
     filename = train_config["data"]["filename_uri"]
-    # print("Earlier filename is", filename)
-    # print("type of data is", type(filename))
+
     if str(filename) == "None":  # TODO: fixme
         # print("local storage")
         filename = train_config["data"]["filename"]
