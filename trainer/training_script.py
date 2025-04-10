@@ -6,7 +6,7 @@ from trainer.training import save_model
 from trainer.data_prep import get_restaurants_df, read_data
 from trainer.features_processing import feature_engineering, Encoder
 from trainer.clustering import run_clustering, order_busyness
-from trainer.training import generate_ds, load_data
+from trainer.training import generate_ds, load_csv_data
 from trainer.utils import get_config_file, upload_to_gcs
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import GridSearchCV, train_test_split
@@ -34,7 +34,7 @@ if __name__ == "__main__":
         filename = train_config["data"]["filename"]
         processed_df = read_data(filename=filename)  # TODO: READ
     else:
-        processed_df = load_data(
+        processed_df = load_csv_data(
             bucket_name=train_config["data"]["bucket_name"],
             blob_path=train_config["data"]["blob_path"],
         )

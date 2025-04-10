@@ -48,7 +48,7 @@ if you want
 <!-- What will be the considered the input to the model -->
 
 ## Local testing 
-1. `docker build -f Dockerfile.production . -t inference_image`
+1. `docker build -f Dockerfile.inference . -t inference_image`
 2. `
 
 

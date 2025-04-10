@@ -2,7 +2,7 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [main]
+    branches: [master]
 
 jobs:  
   lint-format:  
@@ -63,7 +63,7 @@ jobs:
 
 
 
-  build-and-push-dev-image:
+  build-and-push-inf-image:
     needs: [lint-format, unit-test]
     runs-on: ubuntu-latest
 
@@ -86,7 +86,7 @@ jobs:
 
     - name: Build Inference image
       run: |
-        docker build -f Dockerfile.production . -t \
+        docker build -f Dockerfile.inference . -t \
         ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPO_NAME }}/${{ secrets.IMAGE_NAME }}:inf
 
     - name: Push Inference image
@@ -96,7 +96,7 @@ jobs:
 
     
 
-  build-and-push-inf-image:
+  build-and-push-dev-image:
     needs: [lint-format, unit-test]
     runs-on: ubuntu-latest
 
