@@ -20,9 +20,6 @@ def load_csv_data(bucket_name, blob_path):
     return pd.read_csv(BytesIO(blob.download_as_bytes()))
 
 
-
-
-
 def Encoder(df: pd.DataFrame) -> pd.DataFrame:
     columnsToEncode = list(df.select_dtypes(include=["category", "object"]))
     le = LabelEncoder()

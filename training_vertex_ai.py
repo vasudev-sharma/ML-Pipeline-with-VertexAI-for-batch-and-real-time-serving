@@ -1,10 +1,6 @@
 from typing import Union, List
 import google.cloud.aiplatform as aiplatform
 from trainer.utils import get_config_file
-    
-
-
-
 
 
 def deploy_model(model, config):
@@ -51,6 +47,7 @@ def upload_model_to_vertex_registry(display_name, model_dir, deploy_image_path):
     )
 
     return model
+
 
 def create_and_import_dataset_tabular_gcs_sample(
     display_name: str,
@@ -136,10 +133,8 @@ if __name__ == "__main__":
 
     #     # Add model deployment logic as well:
 
-
     # DEPLOY ENDPOINT ONLINE
     pipeline_config = get_config_file("configs/pipeline_config.yaml")
-
 
     # # Upload model
     # model = upload_model_to_vertex_registry(
