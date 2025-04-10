@@ -1,5 +1,3 @@
-Problem description: The team was tasked with developing a model to predict the busyness of a certain geographical region. The project uses a dataset containing the courier locations captured during food collection at restaurants during a time interval. The data scientist has produced a working Proof of Concept (PoC). Now, as an ML Engineer, you are tasked with productionizing this PoC. This notebook contains the data scientist’s code to collect and create geo-location features to describe the busyness of regions (defined as h3 hexagons), and then train an ML model. 
-
 
 ## Development Environment
 
@@ -12,11 +10,11 @@ We use pip-tools to manage dependencies. While developing or building, first
 
 
 ## CI/CD Workflow
-https://github.com/vasudev-sharma/skipTheDishes_ML_challenge/blob/main/images/ci_cd.png
+![CI/CD ](https://github.com/vasudev-sharma/skipTheDishes_ML_challenge/blob/main/images/ci_cd.png)
 
 ## Pipeline
 
-https://github.com/vasudev-sharma/skipTheDishes_ML_challenge/blob/main/images/pipeline.png
+![pipeline](https://github.com/vasudev-sharma/skipTheDishes_ML_challenge/blob/main/images/pipeline.png)
 
 Entrypoint: `python pipeline_script.py`
 The pipeline feeds in `configs/pipline_config.yaml` file to run the pipeline.
@@ -26,6 +24,9 @@ It offers two ways of running the pipeline:
 1. With Batch Serving + Online 
 
 ## Training
+Problem: To Predict the busyness of a certain geographical region. The project uses a dataset containing the courier locations captured during food collection at restaurants during a time interval. 
+
+
 Training can be done in two modes: locally or on Cloud instance (such as Vertex AI)
 
 1. To train locally, run `python -m src.training_script`
