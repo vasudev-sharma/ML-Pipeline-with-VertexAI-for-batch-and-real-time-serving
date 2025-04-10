@@ -166,15 +166,15 @@ jobs:
     #   run: |
     #      python pipeline_script.py --batch --deploy
 
-    - name: Train model
-      run: |
-         python pipeline_script.py --no-batch --no-deploy
+    # - name: Train model
+    #   run: |
+    #      python pipeline_script.py --no-batch --no-deploy
 
     # - name: Train model with Deploy Endpoint
     #   run: |
     #      python pipeline_script.py --no-batch --deploy
 
-    # - name: Train model with Batch Prediction
-    #   run: |
-    #      python pipeline_script.py --batch --no-deploy
+    - name: Train model with Batch Prediction
+      run: |
+         python pipeline_script.py --batch --no-deploy
 
