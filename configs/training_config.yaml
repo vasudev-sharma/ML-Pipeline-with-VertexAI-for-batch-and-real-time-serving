@@ -7,13 +7,17 @@ data:
   blob_path: final_dataset.csv
 
   processed_filename_uri: 'gs://busyness-data/processed_data/preprocessed_data.csv'
+  train_dataset_filename_uri: 'gs://busyness-data/processed_data/data_split/train_dataset.csv'
+  val_dataset_filename_uri: 'gs://busyness-data/processed_data/data_split/val_dataset.csv'
+  test_dataset_filename_uri: 'gs://busyness-data/processed_data/data_split/test_dataset.csv'
+  
   # filename_uri: None
   
 
   # train-val-test split
-  test_size: 0.33
+  test_size: 0.15
   random_state: 42
-  # val_size: 0.15 # TODO: FIXME
+  val_size: 0.15 
 
 clustering:
   k: 5

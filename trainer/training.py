@@ -78,10 +78,5 @@ def generate_ds(df):
     return X, y
 
 
-def combine_ds_and_save(X, y, filename):
-    combine_ds = pd.concat((X, y), axis=1)
-
-    try:
-        combine_ds.to_csv(filename)
-    except Exception:
-        print("Unable to save the data csv file")
+def combine_ds(X, y):
+    return pd.concat((X, y), axis=1)

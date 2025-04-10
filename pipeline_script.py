@@ -75,7 +75,6 @@ if __name__ == "__main__":
     # TODO: Add logging on Training and batch predictions
 
     config = get_config_file("configs/training_config.yaml")
-    # dataset = create_and_import_dataset_tabular_gcs_sample(display_name='data', project='keen-airlock-455922-q4', location='us-central1', gcs_source='gs://busyness-data/final_dataset.csv')
     aiplatform.init(
         project=config["PROJECT_ID"],
         location=config["REGION"],
@@ -89,6 +88,7 @@ if __name__ == "__main__":
         model_serving_container_image_uri=config["DEPLOY_IMAGE"],  #
     )
     MODEL_DISPLAY_NAME = config["MODEL_DISPLAY_NAME"]
+    # dataset = create_and_import_dataset_tabular_gcs_sample(display_name='data', project='keen-airlock-455922-q4', location='us-central1', gcs_source='gs://busyness-data/final_dataset.csv')
 
     if config["TRAIN_GPU"]:
         accelerator_count = config["GPU"]["TRAIN_NGPU"]
@@ -133,16 +133,16 @@ if __name__ == "__main__":
 
     #     # Add model deployment logic as well:
 
-    # DEPLOY ENDPOINT ONLINE
-    pipeline_config = get_config_file("configs/pipeline_config.yaml")
+    # # DEPLOY ENDPOINT ONLINE
+    # pipeline_config = get_config_file("configs/pipeline_config.yaml")
 
-    # # Upload model
-    # model = upload_model_to_vertex_registry(
-    #     pipeline_config["model_name"],
-    #     pipeline_config["MODEL_DIR"],
-    #     pipeline_config["DEPLOY_IMAGE"],
-    # )
-    # print(model)
+    # # # Upload model
+    # # model = upload_model_to_vertex_registry(
+    # #     pipeline_config["model_name"],
+    # #     pipeline_config["MODEL_DIR"],
+    # #     pipeline_config["DEPLOY_IMAGE"],
+    # # )
+    # # print(model)
 
-    # Deploy model to endpoint
-    deploy_model(model, pipeline_config)
+    # # Deploy model to endpoint
+    # deploy_model(model, pipeline_config)

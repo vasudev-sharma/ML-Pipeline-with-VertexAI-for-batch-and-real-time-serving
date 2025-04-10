@@ -2,11 +2,12 @@ import logging
 import numpy as np
 import os
 from trainer.training import save_model
+import pandas as pd
 
 from trainer.data_prep import get_restaurants_df, read_data
 from trainer.features_processing import feature_engineering, Encoder
 from trainer.clustering import run_clustering, order_busyness
-from trainer.training import generate_ds, load_csv_data
+from trainer.training import generate_ds, load_csv_data, combine_ds
 from trainer.utils import get_config_file, upload_to_gcs
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import GridSearchCV, train_test_split
@@ -87,12 +88,33 @@ if __name__ == "__main__":
         busyness_df.to_csv(train_config["data"]["processed_filename_uri"], index=False)
         logging.info(f"Saving processed data @: {train_config["data"]["processed_filename_uri"]}")
     X, y = generate_ds(busyness_df)
+
+    # Train + val, test dataset
     X_train, X_test, y_train, y_test = train_test_split(
         X,
         y,
         test_size=train_config["data"]["test_size"],
         random_state=train_config["data"]["random_state"],
     )
+
+    # Training, Valdation dataset
+    X_train, X_val, y_train, y_val = train_test_split(
+        X_train,
+        y_train,
+        test_size=train_config["data"]["val_size"],
+        random_state=train_config["data"]["random_state"],
+    )
+
+
+    if flag_cloud_storage: 
+
+        # Training Data
+        pd.concat((X_train, y_train), axis=1).to_csv(train_config["data"]["train_dataset_filename_uri"], index=False)
+        # Validation
+        pd.concat((X_val, y_val), axis=1).to_csv(train_config["data"]["val_dataset_filename_uri"], index=False)
+        # Testing Data
+        pd.concat((X_test, y_test), axis=1).to_csv(train_config["data"]["test_dataset_filename_uri"], index=False)
+    
 
     # X_train, X_val, y_train, y_val = generate_ds(X_train, y_train,  split_size=0.33, random_state=42)
 
