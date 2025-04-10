@@ -8,10 +8,8 @@ bandit
 ruff
 google-cloud-storage
 google-cloud-aiplatform
-pydantic
-fastapi
-pydantic
-uvicorn
+fsspec
+gcsfs
 types-PyYAML 
 # Add safety checks and vulnerabilities in dependencies
 

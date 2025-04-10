@@ -22,6 +22,7 @@ if __name__ == "__main__":
 
     train_config = get_config_file("configs/training_config.yaml")
 
+    flag_cloud_storage = False
     # Data processing
     # DO something with process data
     filename = train_config["data"][
@@ -38,6 +39,7 @@ if __name__ == "__main__":
             bucket_name=train_config["data"]["bucket_name"],
             blob_path=train_config["data"]["blob_path"],
         )
+        flag_cloud_storage = True
 
     print("The filename is ", filename)
 
@@ -73,6 +75,12 @@ if __name__ == "__main__":
 
     # Training: data prep + training model
     # X_train, X_test, y_train, y_test = generate_ds(busyness_df, split_size=0.33, random_state=42)
+
+    
+    if flag_cloud_storage:
+        # Save to GCP
+        busyness_df.to_csv(train_config['data']['processed_filename_uri'], index=False)
+
 
     X, y = generate_ds(busyness_df)
     X_train, X_test, y_train, y_test = train_test_split(

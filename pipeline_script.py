@@ -36,6 +36,9 @@ def upload_model_to_vertex_registry(display_name, model_dir, deploy_image_path):
     model = aip.Model.upload(
         display_name=display_name,
         artifact_uri=model_dir,
+        serving_container_predict_route="/predict",
+        serving_container_health_route="/health_check",
+        serving_container_ports=[8080],
         serving_container_image_uri=deploy_image_path,
         is_default_version=True,
         version_aliases=["v1"],

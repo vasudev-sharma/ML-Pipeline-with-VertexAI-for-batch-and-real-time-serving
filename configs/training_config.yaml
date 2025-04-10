@@ -5,6 +5,8 @@ data:
   filename_uri: 'gs://busyness-data/final_dataset.csv' # Set to None, to do local training
   bucket_name: busyness-data
   blob_path: final_dataset.csv
+
+  processed_filename_uri: 'gs://busyness-data/processed_data/preprocessed_data.csv'
   # filename_uri: None
   
 

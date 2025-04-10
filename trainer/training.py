@@ -20,17 +20,7 @@ def load_csv_data(bucket_name, blob_path):
     return pd.read_csv(BytesIO(blob.download_as_bytes()))
 
 
-def get_data_from_gcs(bucket_name, blob_path, filename="model.pkl"):
-    """Load data from GCS bucket
-    Args:
-        bucket_name (str): Name of the GCS bucket
-        blob_path (str): Path to the blob in the bucket
-        filename (str): Name of the file to save the data to local filename
-    """
-    client = storage.Client()
-    bucket = client.bucket(bucket_name)
-    blob = bucket.blob(blob_path)
-    blob.download_to_filename(filename)
+
 
 
 def Encoder(df: pd.DataFrame) -> pd.DataFrame:
