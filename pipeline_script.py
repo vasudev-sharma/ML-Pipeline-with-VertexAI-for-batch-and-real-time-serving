@@ -147,7 +147,7 @@ def run_pipeline(args, config, pipeline_config):
     if args.deploy:
 
         print(
-            "\n\n Deploying Model to endpoint for batch predictions ................. \n\n"
+            "\n\n Deploying Model to endpoint for online predictions ................. \n\n"
         )
         # Deploy model to endpoint
         deploy_model(model, pipeline_config)

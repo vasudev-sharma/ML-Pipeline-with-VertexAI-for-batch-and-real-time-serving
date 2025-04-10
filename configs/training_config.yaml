@@ -7,9 +7,7 @@ data:
   blob_path: final_dataset.csv
 
   processed_filename_uri: 'gs://busyness-data/processed_data'
-  train_dataset_filename_uri: 'gs://busyness-data/processed_data/data_split/train_dataset'
-  val_dataset_filename_uri: 'gs://busyness-data/processed_data/data_split/val_dataset'
-  test_dataset_filename_uri: 'gs://busyness-data/processed_data/data_split/test_dataset'
+
   
   # filename_uri: None
   
@@ -19,13 +17,14 @@ data:
   random_state: 42
   val_size: 0.15 
 
+# Clustering parameters
 clustering:
   k: 5
   resolution: 7
 
 
 
-
+# model-specific-parameters
 model: 
   model_filenmae: 'model.pkl'
   bucket_name: vasu-bucket
@@ -38,7 +37,7 @@ model:
   random_state: 0
   n_jobs: -1
 
-
+  # Grid-search parameters
   grid_search:
     params:
       max_depth: [4, 5]
@@ -50,8 +49,8 @@ model:
     scoring: 'r2'
 
 
-JOB_NAME: 'training_job_demo'
-MODEL_DISPLAY_NAME: 'Busyness-model-demo'
+JOB_NAME: 'training_job_demo-final'
+MODEL_DISPLAY_NAME: 'Busyness-model-demo-final'
 TRAIN_IMAGE: us-central1-docker.pkg.dev/keen-airlock-455922-q4/skip-the-dishesv2/test_image:dev
 TRAIN_COMPUTE: "n1-standard-4"
 SYNC: True
