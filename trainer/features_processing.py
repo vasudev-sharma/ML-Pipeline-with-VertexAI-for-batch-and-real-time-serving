@@ -61,6 +61,7 @@ def avg_Hdist_to_restaurants(courier_lat, courier_lon, restaurants_ids):
 
 
 def Encoder(df):
+    
     columnsToEncode = list(df.select_dtypes(include=["category", "object"]))
     le = LabelEncoder()
     for feature in columnsToEncode:

@@ -164,7 +164,7 @@ jobs:
 
     # - name: Train and perform Batch Prediction
     #   run: |
-    #      python training_vertex_ai.py
+    #      python pipeline_script.py
 
     # - name: Deploy model to Vertex AI
     #   run: |
