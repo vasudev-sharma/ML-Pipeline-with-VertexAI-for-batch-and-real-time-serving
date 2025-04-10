@@ -32,10 +32,10 @@ if __name__ == "__main__":
     # DO something with process data
     filename = train_config["data"]["filename_uri"]
 
-    if str(filename) == "None":  # TODO: fixme
+    if str(filename) == "None":
         # print("local storage")
         filename = train_config["data"]["filename"]
-        processed_df = read_data(filename=filename)  # TODO: READ
+        processed_df = read_data(filename=filename)
     else:
         processed_df = load_csv_data(
             bucket_name=train_config["data"]["bucket_name"],
@@ -67,8 +67,6 @@ if __name__ == "__main__":
     # Order busyness
     busyness_df = order_busyness(h3_clustered_df)
     logging.info(busyness_df.head())
-
-    # TODO: Save cleaned up dataset
 
     # Label Encoding
     busyness_df["h3_index"] = busyness_df.h3_index.astype("category")

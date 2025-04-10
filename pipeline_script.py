@@ -84,6 +84,9 @@ def run_pipeline(args, config, pipeline_config):
         command=["python", "-m", "src.training_script"],
         container_uri=config["TRAIN_IMAGE"],
         model_serving_container_image_uri=config["DEPLOY_IMAGE"],  #
+        model_serving_container_predict_route="/predict",
+        model_serving_container_health_route="/health",
+        model_serving_container_ports=[8080],
     )
     MODEL_DISPLAY_NAME = config["MODEL_DISPLAY_NAME"]
 
