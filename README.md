@@ -1,4 +1,6 @@
 
+![pipeline](https://github.com/vasudev-sharma/skipTheDishes_ML_challenge/blob/main/images/pipeline.png)
+
 ## Development Environment
 
 We use pip-tools to manage dependencies. 
@@ -12,8 +14,6 @@ We use pip-tools to manage dependencies.
 ![CI/CD ](https://github.com/vasudev-sharma/skipTheDishes_ML_challenge/blob/main/images/ci_cd.png)
 
 ## Pipeline
-
-![pipeline](https://github.com/vasudev-sharma/skipTheDishes_ML_challenge/blob/main/images/pipeline.png)
 
 Entrypoint: `python pipeline_script.py`
 The pipeline feeds in `configs/pipline_config.yaml` file to run the pipeline.
